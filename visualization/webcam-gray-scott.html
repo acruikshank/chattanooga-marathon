@@ -1,0 +1,323 @@
+<html>
+  <head>
+    <title>reaction diffusion</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+      html, body, canvas { margin:0; width: 100%; height:100%; overflow: hidden; background-color: black;}
+      video {position: absolute;}
+    </style>
+    <script src="sylvester.js" type="text/javascript"></script>
+    <script src="glUtils.js" type="text/javascript"></script>
+
+    <script id="constants" type="x-shader/x-library">
+      #define pixelWidth 0.0009765625
+      #define dT 2.0
+      #define dScale 0.4
+      #define Da 1.0*dScale
+      #define Db 0.5*dScale
+      #define feed .0940
+      #define kill .0618
+      #define videoAmplitude .006
+      #define videoScale vec2(.75,1.0)
+      #define videoOffset vec2(.125,0.0)
+
+      vec2 laplacian(sampler2D neighbors, vec2 position) {
+        return .05*(texture2D(neighbors,position+vec2(-pixelWidth,-pixelWidth)).rg
+                   +texture2D(neighbors,position+vec2( pixelWidth,-pixelWidth)).rg
+                   +texture2D(neighbors,position+vec2(-pixelWidth, pixelWidth)).rg
+                   +texture2D(neighbors,position+vec2( pixelWidth, pixelWidth)).rg)
+              + .2*(texture2D(neighbors,position+vec2(-pixelWidth,0)).rg
+                   +texture2D(neighbors,position+vec2(0,-pixelWidth)).rg
+                   +texture2D(neighbors,position+vec2(pixelWidth,0)).rg
+                   +texture2D(neighbors,position+vec2(0,pixelWidth)).rg)
+              - texture2D(neighbors,position).rg;
+      }
+    </script>
+
+    <script id="diffusion" type="x-shader/x-fragment">
+      precision mediump float;
+
+      !!include constants
+
+      uniform sampler2D previous;
+      uniform sampler2D video;
+      uniform vec2 dot;
+
+      void main(void) {
+        vec2 position = gl_FragCoord.xy*pixelWidth;
+        vec4 point = texture2D(previous,position);
+        float alpha0 = point.r;
+        float beta0 = point.g;
+        float videoLuma = length(texture2D(video,vec2(1.0) - videoScale*position - videoOffset).rgb);
+        float localKill = kill - videoAmplitude * videoLuma;
+        vec2 lap = laplacian(previous,position);
+        gl_FragColor = vec4( clamp(alpha0 + (Da*lap.r
+                        - alpha0*beta0*beta0 + feed*(1.0-alpha0)) * dT,0.0,1.0),
+                      clamp(beta0 + (Db*lap.g
+                        + alpha0*beta0*beta0 - (localKill + feed)*beta0) * dT,0.0,1.0),
+                      0.0, 0.0);
+        if (length(position - dot) < 0.001) {
+          gl_FragColor.g = 1.0;
+        }
+      }
+    </script>
+
+    <script id="render" type="x-shader/x-fragment">
+      precision mediump float;
+
+      !!include constants
+
+      uniform sampler2D diffusion;
+      uniform float offset;
+      uniform float scale;
+
+      void main(void) {
+        vec2 position = gl_FragCoord.xy*scale - vec2(offset,0);
+        float alpha0 = texture2D(diffusion,position).r;
+        float beta0 = texture2D(diffusion,position).g;
+        gl_FragColor = vec4(4.0*beta0+.1*alpha0, 1.8*beta0+.2*alpha0, 0.5*beta0+.2*alpha0, 1.0);
+      }
+    </script>
+
+    <script id="passthrough" type="x-shader/x-vertex">
+      precision mediump float;
+
+      attribute vec2 position;
+
+      void main(void) {
+        gl_Position = vec4(position, 0.0, 1.0);
+      }
+    </script>
+  </head>
+
+  <body>
+    <canvas id="glcanvas">
+      Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
+    </canvas>
+    <video id="v" autoplay width="640" height="480"></video>
+  </body>
+  <script>
+
+/* TODO:
+  - introduce random dots to seed dark areas
+  - have video tune feed and kill linearly
+  - have video tune feed and kill non-linearly
+  - introduce color
+  - balance webcam luminosity
+ */
+
+var canvas;
+var gl;
+var triangleBuffer;
+var pointBuffer;
+var coordAttribute;
+var diffusionBuffer, diffusionShader;
+var renderShader;
+var vertexPositionAttribute;
+var PIXELS = 1024;
+var LIVENESS = 15;
+var ITERATIONS_PER_FRAME = 20;
+var PIXEL_RATIO = window.devicePixelRatio || 1;
+var time = 0;
+
+
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia
+                        || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+navigator.getUserMedia({audio:false,video:true}, function(stream) {
+  var video=document.getElementById("v");
+  video.src=URL.createObjectURL(stream);
+  video.addEventListener('canplay', start);
+}, function(err) { console.log(err); });
+
+function start() {
+  canvas = document.getElementById("glcanvas");
+  canvas.width = canvas.offsetWidth * PIXEL_RATIO;
+  canvas.height = canvas.offsetHeight * PIXEL_RATIO;
+
+  gl = canvas.getContext("experimental-webgl");
+
+  if (gl) {
+    gl.getExtension('OES_texture_float');
+
+    gl.clearColor(0, 0, 0, 1.0);        // Clear to black, fully opaque
+    gl.clearDepth(1.0);                 // Clear everything
+    gl.enable(gl.DEPTH_TEST);           // Enable depth testing
+    gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
+
+    var c = document.createElement('canvas');
+    c.width = c.height = PIXELS
+    var ctx = c.getContext('2d')
+    ctx.fillStyle = '#000'
+    ctx.fillRect(0,0,PIXELS,PIXELS)
+    ctx.fillStyle = '#fff'
+    ctx.beginPath(); ctx.arc(PIXELS/2,PIXELS/2, PIXELS/2, 0, 2*Math.PI, true); ctx.fill();
+    var cData = ctx.getImageData(0,0,PIXELS,PIXELS).data;
+
+    var data = new Float32Array(cData.length)
+    for (var i=0; i<data.length; i+=4) {
+      data[i]=1.0;
+      data[i+1]=Math.pow(Math.random(),LIVENESS) * cData[i] / 255;
+    }
+
+    diffusionShader = createProgram(gl, 'passthrough', 'diffusion');
+    renderShader = createProgram(gl, 'passthrough', 'render');
+
+    gl.enableVertexAttribArray(coordAttribute);
+
+    var vertices = new Float32Array([-1,-1,-1,4,4,-1]);
+
+    triangleBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+    diffusionBuffer = ReBuffer(gl, 2, PIXELS, {type: gl.FLOAT, data:[data,data]});
+
+    render();
+  }
+}
+
+function renderDiffusion(gl) {
+  gl.useProgram(diffusionShader);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer);
+  gl.vertexAttribPointer(coordAttribute, 2, gl.FLOAT, false, 0, 0);
+
+  var texture = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, document.getElementById('v'));
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.bindTexture(gl.TEXTURE_2D, null);
+
+  gl.activeTexture(gl.TEXTURE2);
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  gl.uniform1i(gl.getUniformLocation(diffusionShader, "video"), 2);
+  gl.uniform2f(gl.getUniformLocation(diffusionShader, "dot"), Math.random(), Math.random());
+
+  for (var i=0; i < ITERATIONS_PER_FRAME; i++) {
+    diffusionBuffer.bindNext(gl);
+    diffusionBuffer.uniform(gl,diffusionShader,1,'previous',i%2);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+}
+
+function render() {
+  var scale = 1 / (PIXEL_RATIO*document.body.offsetHeight);
+  var offset = .5 * (document.body.offsetWidth - document.body.offsetHeight) / document.body.offsetHeight;
+
+  renderDiffusion(gl);
+
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+  gl.useProgram(renderShader);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer);
+  gl.vertexAttribPointer(coordAttribute, 2, gl.FLOAT, false, 0, 0);
+
+  diffusionBuffer.uniform(gl,renderShader,0,'diffusion',5);
+  gl.uniform1f( gl.getUniformLocation(renderShader, "offset"), offset);
+  gl.uniform1f( gl.getUniformLocation(renderShader, "scale"), scale);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, triangleBuffer);
+  gl.vertexAttribPointer(coordAttribute, 2, gl.FLOAT, false, 0, 0);
+
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+  requestAnimationFrame(render);
+}
+
+
+function ReBuffer(gl, count, size, options) {
+  var buffers = [];
+  var index = -1;
+  options = options || {};
+  options.type = options.type || gl.UNSIGNED_BYTE;
+
+  for (var i=0; i<count; i++) {
+    var rttFramebuffer = gl.createFramebuffer();
+    rttFramebuffer.width = size;
+    rttFramebuffer.height = size;
+    gl.bindFramebuffer(gl.FRAMEBUFFER, rttFramebuffer);
+
+    var rttTexture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, rttTexture);
+    if (options.clamp) {
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    }
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+
+    // TODO: Pick the right pixel format
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, rttFramebuffer.width, rttFramebuffer.height, 0, gl.RGBA, options.type,
+                  (options.data||[])[i] || null);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, rttTexture, 0);
+
+    gl.bindTexture(gl.TEXTURE_2D, null);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+    buffers.push( {framebuffer:rttFramebuffer, texture:rttTexture} );
+  }
+
+  return {
+    bindNext: function(gl) {
+      index = (index+1) % buffers.length;
+      gl.bindFramebuffer(gl.FRAMEBUFFER, buffers[index].framebuffer);
+
+      gl.viewport(0, 0, size, size);
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    },
+    uniform: function(gl,shader,offset,name,textureIndex) {
+      var buffer = buffers[(index + buffers.length - offset) % buffers.length];
+      gl.activeTexture(gl['TEXTURE'+textureIndex]);
+      gl.bindTexture(gl.TEXTURE_2D, buffer.texture);
+      gl.uniform1i(gl.getUniformLocation(shader, name), textureIndex);
+    }
+  }
+}
+
+function createProgram(gl, vertex, fragment) {
+  var libraryScripts = document.querySelectorAll("script[type='x-shader/x-library']");
+  for (var i=0, libraries={}, script; script = libraryScripts[i]; i++)
+    libraries[script.id] = script.innerText;
+
+  // init shaders
+  var fragmentShader = getShader(gl, fragment, libraries);
+  var vertexShader = getShader(gl, vertex, libraries);
+
+  var shaderProgram = gl.createProgram();
+  gl.attachShader(shaderProgram, vertexShader);
+  gl.attachShader(shaderProgram, fragmentShader);
+  gl.linkProgram(shaderProgram);
+  if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+    throw new Error("Unable to link " + vertex + " and " + fragment);
+  }
+  return shaderProgram;
+}
+
+function getShader(gl, id, libraries) {
+  var script = document.getElementById(id);
+  var shader = gl.createShader({
+    "x-shader/x-fragment": gl.FRAGMENT_SHADER,
+    "x-shader/x-vertex": gl.VERTEX_SHADER
+  }[script.type]);
+
+  var source = script.innerText.replace(/!!include (\w+)/g, function(_,name) {
+    return libraries[name];
+  });
+
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    console.error("An error occurred compiling the shaders: " + gl.getShaderInfoLog(shader));
+    throw new Error("GL Compilation Error compiling " + id);
+  }
+  return shader;
+}
+  </script>
+</html>
