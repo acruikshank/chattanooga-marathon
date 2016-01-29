@@ -1,0 +1,107 @@
+<html>
+<head>
+  <script src="scripts/recorded-data.js"></script>
+  <script src="scripts/position-data.js"></script>
+  <style>
+    html { height: 100%; }
+    body { height: 100%; width: 100%; margin: 0; background-color: #333; }
+    canvas { width: 100%; height: 100%; }
+    #map { position: absolute; left: 0; top: 0; }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <canvas id="map"></canvas>
+</body>
+<script>
+var canvas = document.getElementById('c');
+var cw = canvas.width = 2*canvas.offsetWidth;
+var ch = canvas.height = 2*canvas.offsetHeight;
+var ctx = canvas.getContext('2d');
+var colors = ['hsla(0,100%,60%,0.125)','hsla(30,100%,50%,0.0625)','hsla(60,100%,50%,0.2)','hsla(120,100%,50%,0.0625)','hsla(180,100%,50%,0.0625)']
+var lastSample = new Float32Array(25);
+var ease = .15;
+var mapContext, mapXScale, mapYScale;
+
+var sampler = RecordedData('data/run-20160124-11_21.csv', 10)
+var positions = PositionData('data/run-20160124-11_21-position.gpx', drawMap);
+
+function animate() {
+  var hscale = {dmn: sampler.startTime + .0*sampler.timeRange, dmx: sampler.startTime + 1.0*sampler.timeRange, rmn: 0, rmx: cw};
+  var vscales = [
+    {dmn: 0, dmx: 11, rmn: ch, rmx: .8*ch},
+    {dmn: 0, dmx: 11, rmn: .8*ch, rmx: .6*ch},
+    {dmn: 0, dmx: 11, rmn: .6*ch, rmx: .4*ch},
+    {dmn: 0, dmx: 11, rmn: .4*ch, rmx: .2*ch},
+    {dmn: 0, dmx: 11, rmn: .2*ch, rmx: 0}
+  ];
+
+  var x = rescale(hscale, sampler.currentTime);
+  var sample = sampler.getSample();
+  for (var j=0; j<sample.length; j++) {
+    vscale = vscales[Math.floor(j/5)];
+    ctx.fillStyle = colors[j%5];
+    ctx.beginPath();
+    value = lastSample[j] = lerp(lastSample[j],sample[j],ease);
+    var y = rescale(vscale, Math.log(value + 1));
+    ctx.arc(x,y,1.5,0,2*Math.PI,true);
+    ctx.fill();
+  }
+  drawMapPoint(new Date(sampler.currentTime*1000))
+
+  requestAnimationFrame(animate)
+}
+
+function lerp(a,b,x) { return a + x*(b-a); }
+
+function rescale(scale, x) {
+  return scale.rmn + ((x - scale.dmn) / (scale.dmx - scale.dmn))*(scale.rmx - scale.rmn);
+}
+
+function drawMapPoint(time) {
+  if (!mapContext) return;
+
+  var cw = mapContext.canvas.width;
+  var ch = mapContext.canvas.height;
+  var ctx = mapContext;
+
+  var xmargin = (cw - .8*ch) / 2;
+  var ymargin = .1*ch;
+
+  ctx.fillStyle = 'rgba(255,255,0,.1)';
+  var sample = positions.sampleAt(time);
+  var x = xmargin + rescale(mapXScale, sample.lon);
+  var y = ymargin + rescale(mapYScale, sample.lat);
+  ctx.beginPath();
+  ctx.arc(x,y,2,0,2*Math.PI,true);
+  ctx.fill();
+}
+
+function drawMap(stats, data) {
+  var canvas = document.getElementById('map');
+  var cw = canvas.width = 2*canvas.offsetWidth;
+  var ch = canvas.height = 2*canvas.offsetHeight;
+  var ctx = canvas.getContext('2d');
+
+  var yscale = {dmn: stats.minLat, dmx: stats.maxLat, rmn: .8*ch, rmx: 0 }
+  var xscale = {dmn: stats.minLon, dmx: stats.maxLon, rmn: 0, rmx: .8*ch };
+  var xmargin = (cw - .8*ch) / 2;
+  var ymargin = .1*ch;
+
+  ctx.fillStyle = 'rgba(255,100,0,0.1)';
+  data.forEach(function(sample) {
+    var x = xmargin + rescale(xscale, sample.lon);
+    var y = ymargin + rescale(yscale, sample.lat);
+    ctx.beginPath();
+    ctx.arc(x,y,10,0,2*Math.PI,true);
+    ctx.fill();
+  })
+
+  mapContext = ctx;
+  mapXScale = xscale;
+  mapYScale = yscale;
+}
+
+animate();
+</script>
+</html>

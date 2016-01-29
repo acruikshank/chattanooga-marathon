@@ -9,6 +9,7 @@
     </style>
     <script src="sylvester.js" type="text/javascript"></script>
     <script src="glUtils.js" type="text/javascript"></script>
+    <script src="recorded-data.js" type="text/javascript"></script>
     <script id="shader-fs" type="x-shader/x-fragment">
       precision mediump float;
 
@@ -101,11 +102,7 @@ var dt = .001;
 var dTheta = .01;
 var resetInterval = 24000;
 
-var times, data;
-var startTime, endTime, timeRange;
-var currentTime;
-var lastRender;
-var index = 0;
+var sampler = RecordedData('data.csv')
 
 var v = {
   norm : function(v) { return Math.sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]); },
@@ -135,7 +132,6 @@ var q = {
         q1[0]*q2[3] - q1[1]*q2[2] + q1[2]*q2[1] + q1[3]*q2[0] ]; },
 }
 
-fetchData();
 
 function start() {
   canvas = document.getElementById("c");
@@ -183,7 +179,6 @@ function start() {
     generateGeometry();
 
     render();
-    // setInterval(generateGeometry, resetInterval);
   }
 }
 
@@ -288,14 +283,7 @@ function render() {
 }
 
 function nextSample() {
-  var now = new Date().getTime();
-  currentTime += (now - lastRender) / 1000;
-  while (times[index] && times[index] < currentTime) index++;
-  var fraction = (currentTime - times[index-1]) / (times[index] - times[index-1]);
-  lastRender = now;
-  return new Float32Array(data.map(function(signal, i) {
-    return lerp(signal[index-i], signal[index], fraction);
-  }))
+  return sampler.getSample();
 }
 
 function getShader(gl, id) {
@@ -327,42 +315,7 @@ function getShader(gl, id) {
 
 function lerp(a,b,x) { return a + x*(b-a); }
 
-function rescale(scale, x) {
-  return scale.rmn + ((x - scale.dmn) / (scale.dmx - scale.dmn))*(scale.rmx - scale.rmn);
-}
-
-function fetchData() {
-  var request = new XMLHttpRequest();
-  request.open("GET", 'data.csv', true);
-
-  request.onreadystatechange = function() {
-    if (request.readyState > 3) {
-      if (request.status != 200)
-        displayError(request.responseText);
-      else
-        uploadComplete(request.response);
-    }
-  }
-  request.send();
-}
-
-function uploadComplete(response) {
-  var values = [];
-  for (var i=0; i<26; i++) values.push([]);
-  for (var re = /(.*)\n/gm, m, i=0; m = re.exec(response); i++)
-    if (i>0)
-      m[1].split(',').forEach(function(v,j) { values[j].push(v) })
-
-  times = new Float64Array(values[0]);
-  data = values.slice(1).map(function(v) { return new Float64Array(v) });
-  startTime = times[0];
-  endTime = times[times.length-1];
-  timeRange = endTime - startTime;
-  currentTime = startTime;
-  lastRender = new Date().getTime();
-  start();
-}
-
+start();
 
   </script>
 </html>

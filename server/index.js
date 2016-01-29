@@ -16,7 +16,7 @@ app.use(function(req, res, next){
 });
 app.use(express.static('public'));
 
-app.post('/api/samples', function(req, res) {
+app.post('/api/1.0/samples', function(req, res) {
   var body = req.body.toString('binary');
 
   var buf = new ArrayBuffer(body.length);
@@ -24,9 +24,11 @@ app.post('/api/samples', function(req, res) {
   for (var i=0; i<body.length; i++)
     byteView[i] = body.charCodeAt(i);
 
-  var samples = new Float32Array(buf);
+  var samples = new Float64Array(buf);
+  console.log(new Date().getTime() - (1000*samples[0]));
+  var valuesOnly = new Float32Array(Array.prototype.slice.call(samples,1));
   connections.forEach(function(connection) {
-    connection.send(samples, {binary:true});
+    connection.send(valuesOnly, {binary:true});
   })
 
   res.sendStatus(200);

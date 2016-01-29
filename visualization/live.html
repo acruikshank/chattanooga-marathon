@@ -1,5 +1,6 @@
 <html>
 <head>
+  <script src="recorded-data.js"></script>
   <style>
     html { height: 100%; }
     body { height: 100%; width: 100%; margin: 0; background-color: #333; }
@@ -15,31 +16,13 @@ var cw = canvas.width = 2*canvas.offsetWidth;
 var ch = canvas.height = 2*canvas.offsetHeight;
 var ctx = canvas.getContext('2d');
 var colors = ['hsla(0,100%,60%,0.125)','hsla(30,100%,50%,0.0625)','hsla(60,100%,50%,0.2)','hsla(120,100%,50%,0.0625)','hsla(180,100%,50%,0.0625)']
+var lastSample = new Float32Array(25);
+var ease = .15;
 
-var times, data;
-var startTime, endTime, timeRange;
-var currentTime;
-var lastRender;
-var index = 0;
-
-function render(_times, _data) {
-  times = _times;
-  data = _data;
-  ctx.clearRect(0,0,cw,ch);
-  startTime = times[0];
-  endTime = times[times.length-1];
-  timeRange = endTime - startTime;
-  currentTime = startTime;
-  lastRender = new Date().getTime();
-  animate();
-}
+var sampler = RecordedData('data.csv')
 
 function animate() {
-  var now = new Date().getTime();
-  currentTime += (now - lastRender) / 1000;
-  while (times[index] && times[index] < currentTime) index++;
-
-  var hscale = {dmn: startTime + .0*timeRange, dmx: startTime + 1.0*timeRange, rmn: 0, rmx: cw};
+  var hscale = {dmn: sampler.startTime + .0*sampler.timeRange, dmx: sampler.startTime + 1.0*sampler.timeRange, rmn: 0, rmx: cw};
   var vscales = [
     {dmn: 0, dmx: 11, rmn: ch, rmx: .8*ch},
     {dmn: 0, dmx: 11, rmn: .8*ch, rmx: .6*ch},
@@ -48,19 +31,18 @@ function animate() {
     {dmn: 0, dmx: 11, rmn: .2*ch, rmx: 0}
   ];
 
-  var x = rescale(hscale, currentTime);
-  var fraction = (currentTime - times[index-1]) / (times[index] - times[index-1]);
-  for (var j=0; j<data.length; j++) {
+  var x = rescale(hscale, sampler.currentTime);
+  var sample = sampler.getSample();
+  for (var j=0; j<sample.length; j++) {
     vscale = vscales[Math.floor(j/5)];
     ctx.fillStyle = colors[j%5];
     ctx.beginPath();
-    var value = lerp(data[j][index-1], data[j][index], fraction);
+    value = lastSample[j] = lerp(lastSample[j],sample[j],ease);
     var y = rescale(vscale, Math.log(value + 1));
-    ctx.arc(x,y,2,0,2*Math.PI,true);
+    ctx.arc(x,y,1,0,2*Math.PI,true);
     ctx.fill();
   }
 
-  lastRender = now;
   requestAnimationFrame(animate)
 }
 
@@ -70,32 +52,6 @@ function rescale(scale, x) {
   return scale.rmn + ((x - scale.dmn) / (scale.dmx - scale.dmn))*(scale.rmx - scale.rmn);
 }
 
-function fetchData() {
-  var request = new XMLHttpRequest();
-  request.open("GET", 'data-kimberly.csv', true);
-
-  request.onreadystatechange = function() {
-    if (request.readyState > 3) {
-      if (request.status != 200)
-        displayError(request.responseText);
-      else
-        uploadComplete(request.response);
-    }
-  }
-  request.send();
-}
-
-function uploadComplete(data) {
-  var values = [];
-  for (var i=0; i<26; i++) values.push([]);
-  for (var re = /(.*)\n/gm, m, i=0; m = re.exec(data); i++)
-    if (i>0)
-      m[1].split(',').forEach(function(v,j) { values[j].push(v) })
-  render(new Float64Array(values[0]), values.slice(1).map(function(v) { return new Float64Array(v) }));
-}
-
-fetchData();
-
-
+animate();
 </script>
 </html>
