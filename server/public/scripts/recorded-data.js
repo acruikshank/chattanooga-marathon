@@ -1,4 +1,4 @@
-RecordedData = function(file, playbackRate) {
+RecordedData = function(file, playbackRate, cb) {
   playbackRate = playbackRate || 1.0;
   var times, data;
   var currentTime;
@@ -35,6 +35,8 @@ RecordedData = function(file, playbackRate) {
     out.timeRange = out.endTime - out.startTime;
     currentTime = out.startTime;
     lastRender = new Date().getTime();
+
+    if (cb) cb();
   }
 
   out.getSample = function getSample() {
@@ -50,6 +52,21 @@ RecordedData = function(file, playbackRate) {
     for (var i=0; i<data.length; i++) sample[i] = data[i][index];
     return sample;
   }
+
+  out.sampleAt = function sampleAt(time, start, end) {
+    start = start || 0;
+    end = (end == null ? times.length : end);
+    if (end - start < 2) {
+      var sample = new Float32Array(data.length);
+      for (var i=0; i<data.length; i++) sample[i] = data[i][start];
+      return sample;
+    }
+    var midpoint = start + Math.floor((end-start)/2);
+    return time < times[midpoint]
+      ? sampleAt(time, start, midpoint)
+      : sampleAt(time, midpoint, end)
+  }
+
 
   fetchData();
 

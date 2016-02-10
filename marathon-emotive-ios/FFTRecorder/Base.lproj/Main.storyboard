@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -16,12 +17,13 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Marathon Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="tdx-lZ-Q3g">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Marathon Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="tdx-lZ-Q3g">
                                 <rect key="frame" x="0.0" y="28" width="600" height="299"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="tdx-lZ-Q3g" secondAttribute="height" multiplier="600:299" id="YFa-Au-Dxo"/>
                                     <constraint firstAttribute="width" secondItem="tdx-lZ-Q3g" secondAttribute="height" multiplier="499:248" id="dX1-5R-Z9h"/>
                                 </constraints>
                                 <variation key="default">
@@ -35,6 +37,14 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9t-qh-ksK">
+                                <rect key="frame" x="20" y="873" width="500" height="67"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Transmit"/>
+                                <connections>
+                                    <action selector="toggleTransmit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pwh-cA-OzB"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXc-RX-3OQ">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <constraints>
@@ -66,12 +76,18 @@
                         </subviews>
                         <color key="backgroundColor" red="0.090196078431372548" green="0.2627450980392157" blue="0.29803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="X9t-qh-ksK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Kw9-az-fzh"/>
                             <constraint firstItem="tdx-lZ-Q3g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="MX8-qx-KnF"/>
                             <constraint firstItem="gXc-RX-3OQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ONX-Bc-kCH"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="X9t-qh-ksK" secondAttribute="bottom" constant="30" id="UuN-OV-T5M"/>
+                            <constraint firstItem="tdx-lZ-Q3g" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="WJW-vi-zpN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tdx-lZ-Q3g" secondAttribute="trailing" constant="1" id="WPa-kC-i2O"/>
                             <constraint firstItem="gXc-RX-3OQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="0.5" id="Wmr-CQ-buN">
                                 <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                             </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="tdx-lZ-Q3g" secondAttribute="trailing" constant="30" id="a1G-zD-c9p"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="X9t-qh-ksK" secondAttribute="trailing" id="am5-El-oRb"/>
+                            <constraint firstItem="tdx-lZ-Q3g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="crZ-lX-Jbb"/>
                             <constraint firstItem="tdx-lZ-Q3g" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="grO-58-C7j"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gXc-RX-3OQ" secondAttribute="trailing" constant="1" id="jv7-qp-iGX"/>
                         </constraints>
@@ -80,12 +96,12 @@
                                 <exclude reference="gXc-RX-3OQ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="MX8-qx-KnF"/>
-                                <exclude reference="WPa-kC-i2O"/>
-                                <exclude reference="grO-58-C7j"/>
                                 <exclude reference="ONX-Bc-kCH"/>
                                 <exclude reference="Wmr-CQ-buN"/>
                                 <exclude reference="jv7-qp-iGX"/>
+                                <exclude reference="MX8-qx-KnF"/>
+                                <exclude reference="WPa-kC-i2O"/>
+                                <exclude reference="grO-58-C7j"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -93,12 +109,12 @@
                                 <include reference="gXc-RX-3OQ"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="MX8-qx-KnF"/>
-                                <include reference="WPa-kC-i2O"/>
-                                <include reference="grO-58-C7j"/>
                                 <include reference="ONX-Bc-kCH"/>
                                 <include reference="Wmr-CQ-buN"/>
                                 <include reference="jv7-qp-iGX"/>
+                                <include reference="MX8-qx-KnF"/>
+                                <include reference="WPa-kC-i2O"/>
+                                <include reference="grO-58-C7j"/>
                             </mask>
                         </variation>
                     </view>
@@ -106,11 +122,12 @@
                     <size key="freeformSize" width="540" height="960"/>
                     <connections>
                         <outlet property="status" destination="gXc-RX-3OQ" id="9NS-RO-o8H"/>
+                        <outlet property="transmitButton" destination="X9t-qh-ksK" id="4k2-mC-hfG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="304.5" y="282"/>
+            <point key="canvasLocation" x="304" y="282"/>
         </scene>
     </scenes>
     <resources>

@@ -32,6 +32,7 @@ EmoStateHandle eState;
 unsigned int userID					= 0;
 float secs							= 1;
 bool readytocollect					= false;
+bool transmitting           = false;
 int state                           = 0;
 
 
@@ -65,6 +66,7 @@ NSMutableData *data;
   [self saveStr:file data:data value:newLine];
   
   //IEE_MotionDataSetBufferSizeInSec(secs);
+  self.transmitButton.alpha = 0.0;
   
   [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(getNextEvent) userInfo:nil repeats:YES];
   
@@ -93,6 +95,7 @@ NSMutableData *data;
       IEE_FFTSetWindowingType(userID, IEE_HANN);
       self.status.text = @"Connected";
       readytocollect = TRUE;
+      self.transmitButton.alpha = 1.0;
     }
     else if (eventType == IEE_UserRemoved)
     {
@@ -100,6 +103,7 @@ NSMutableData *data;
       isConnected = NO;
       self.status.text = @"Disconnected";
       readytocollect = FALSE;
+      self.transmitButton.alpha = 0.0;
     }
     else if (eventType == IEE_EmoStateUpdated)
     {
@@ -126,18 +130,29 @@ NSMutableData *data;
         [self saveDoubleVal:file data:data value:value[j]];
       }
       [self saveStr:file data:data value:newLine];
-      [self sendValues:value];
+      if (transmitting) {
+        [self sendValues:value];
+      }
     }
     
-    
+  }
+}
+
+-(IBAction)toggleTransmit:(id)sender {
+  if (transmitting) {
+    transmitting = false;
+    [self.transmitButton setTitle:@"Transmit" forState:UIControlStateNormal];
+  } else {
+    transmitting = true;
+    [self.transmitButton setTitle:@"Stop Transmitting" forState:UIControlStateNormal];
   }
 }
 
 -(void) sendValues:(double[26])values {
   Float64 converted[26];
   for (int i=0; i<26; i++) converted[i] = (Float64) values[i];
-  STHTTPRequest *request = [STHTTPRequest requestWithURLString:@"http://10.0.1.12:8000/api/1.0/samples"];
-//  STHTTPRequest *request = [STHTTPRequest requestWithURLString:@"http://chattanooga-marathon-alex.ngrok.io/api/1.0/samples"];
+  STHTTPRequest *request = [STHTTPRequest requestWithURLString:@"https://chama-emote.herokuapp.com/api/1.0/samples"];
+//  STHTTPRequest *request = [STHTTPRequest requestWithURLString:@"https://chattanooga-marathon-alex.ngrok.io/api/1.0/samples"];
   
   request.rawPOSTData = [NSData dataWithBytes:&converted length:208];
   

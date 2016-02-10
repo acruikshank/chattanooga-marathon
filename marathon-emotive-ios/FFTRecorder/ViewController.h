@@ -14,6 +14,8 @@
 }
 
 @property (weak) IBOutlet UILabel *status;
-@property (weak) IBOutlet UIButton *recordButton;
-@end
+@property (weak) IBOutlet UIButton *transmitButton;
 
+-(IBAction)toggleTransmit:(id)sender;
+
+@end
