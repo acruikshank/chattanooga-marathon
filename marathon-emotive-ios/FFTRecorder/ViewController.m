@@ -156,10 +156,17 @@ NSMutableData *data;
     transmitting = false;
     [self.transmitButton setTitle:@"Transmit" forState:UIControlStateNormal];
   } else {
-    transmitting = true;
     [self.transmitButton setTitle:@"Stop Transmitting" forState:UIControlStateNormal];
-    [self updateSession];
+    [self startTransmitting];
   }
+}
+
+-(void) startTransmitting {
+  currentPointer = 0;
+  lastTransmitted = 0;
+  lastAttempted = 0;
+  [self updateSession];
+  transmitting = true;
 }
 
 -(void) updateSession {
@@ -191,8 +198,8 @@ NSMutableData *data;
     transmissionSize = sampleBytes * (BUFFER_SIZE - lastTransmitted + currentPointer);
   }
   
-//  NSString *host = @"https://chama-emote.herokuapp.com";
-  NSString *host = @"https://chattanooga-marathon-alex.ngrok.io";
+  NSString *host = @"https://chama-emote.herokuapp.com";
+//  NSString *host = @"https://chattanooga-marathon-alex.ngrok.io";
   NSString *url = [NSString stringWithFormat:@"%@/api/1.0/samples/%@/%@", host, self.deviceName, self.session];
   STHTTPRequest *request = [STHTTPRequest requestWithURLString:url];
   
