@@ -20,8 +20,13 @@ const char header[] = "Time, Theta AF3,Alpha AF3,Low beta AF3,High beta AF3, Gam
 
 const char *newLine = "\n";
 const char *comma = ",";
+const int SAMPLE_SIZE = 26;
+const int BUFFER_SIZE = 1200;
 
 @interface ViewController ()
+
+@property (nonatomic, retain) NSString *deviceName;
+@property (nonatomic, retain) NSString *session;
 
 @end
 
@@ -29,12 +34,17 @@ const char *comma = ",";
 EmoEngineEventHandle eEvent;
 EmoStateHandle eState;
 
-unsigned int userID					= 0;
-float secs							= 1;
-bool readytocollect					= false;
-bool transmitting           = false;
-int state                           = 0;
-
+unsigned int userID	= 0;
+float secs = 1;
+bool readytocollect = false;
+bool transmitting = false;
+bool sending = false;
+int state = 0;
+int currentPointer = 0;
+int lastTransmitted = 0;
+int lastAttempted = 0;
+Float64 buffer[SAMPLE_SIZE*BUFFER_SIZE];
+Float64 scratchBuffer[SAMPLE_SIZE*BUFFER_SIZE];
 
 NSFileHandle *file;
 NSMutableData *data;
@@ -56,7 +66,7 @@ NSMutableData *data;
     self.status.text = @"Can't connect engine";
   }
   
-  NSString* fileName = [NSString stringWithFormat:@"%@/BandPowerValue.csv",documentDirectory];
+  NSString* fileName = [NSString stringWithFormat:@"%@/datalog-%f.csv",documentDirectory,CFAbsoluteTimeGetCurrent()];
   NSLog(@"Path: %@", fileName);
   NSString* createFile = @"";
   [createFile writeToFile:fileName atomically:YES encoding:NSUnicodeStringEncoding error:nil];
@@ -69,6 +79,7 @@ NSMutableData *data;
   self.transmitButton.alpha = 0.0;
   
   [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(getNextEvent) userInfo:nil repeats:YES];
+  [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(transmit) userInfo:nil repeats:YES];
   
 }
 
@@ -76,6 +87,8 @@ NSMutableData *data;
   int numberDevice = IEE_GetInsightDeviceCount();
   if(numberDevice > 0 && !isConnected) {
     IEE_ConnectInsightDevice(0);
+    self.deviceName = [self parseSerialFromName:[[NSString alloc] initWithCString:IEE_GetInsightDeviceName(0) encoding:NSASCIIStringEncoding]];
+    NSLog(@"Connected %@", self.deviceName);
     isConnected = YES;
   }
   else isConnected = NO;
@@ -145,37 +158,69 @@ NSMutableData *data;
   } else {
     transmitting = true;
     [self.transmitButton setTitle:@"Stop Transmitting" forState:UIControlStateNormal];
+    [self updateSession];
   }
 }
 
+-(void) updateSession {
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  [dateFormatter setDateFormat:@"yyyyMMdd'-'HHmmss"];
+  NSDate *date = [NSDate date];
+  self.session = [dateFormatter stringFromDate:date];
+}
+
 -(void) sendValues:(double[26])values {
-  Float64 converted[26];
-  for (int i=0; i<26; i++) converted[i] = (Float64) values[i];
-  STHTTPRequest *request = [STHTTPRequest requestWithURLString:@"https://chama-emote.herokuapp.com/api/1.0/samples"];
-//  STHTTPRequest *request = [STHTTPRequest requestWithURLString:@"https://chattanooga-marathon-alex.ngrok.io/api/1.0/samples"];
+  for (int i=0; i<26; i++) buffer[i + SAMPLE_SIZE*currentPointer] = (Float64) values[i];
+  currentPointer = (currentPointer+1) % BUFFER_SIZE;
+  if (lastTransmitted == currentPointer)
+    lastTransmitted = (lastTransmitted+1) % BUFFER_SIZE;
+}
+
+-(void) transmit {
+  if (!transmitting || sending || lastTransmitted == currentPointer) return;
   
-  request.rawPOSTData = [NSData dataWithBytes:&converted length:208];
+  int sampleBytes = SAMPLE_SIZE*sizeof(Float64);
+  int transmissionSize = 0;
+  int attemptedTransmission = currentPointer;
+  if (currentPointer > lastTransmitted) {
+    memcpy(scratchBuffer, &buffer[lastTransmitted*SAMPLE_SIZE], (currentPointer-lastTransmitted)*sampleBytes);
+    transmissionSize = sampleBytes * (currentPointer - lastTransmitted);
+  } else {
+    memcpy(scratchBuffer, &buffer[lastTransmitted*SAMPLE_SIZE], (BUFFER_SIZE-lastTransmitted)*sampleBytes);
+    memcpy(&scratchBuffer[(BUFFER_SIZE-lastTransmitted)*SAMPLE_SIZE], &buffer, currentPointer*sampleBytes);
+    transmissionSize = sampleBytes * (BUFFER_SIZE - lastTransmitted + currentPointer);
+  }
+  
+//  NSString *host = @"https://chama-emote.herokuapp.com";
+  NSString *host = @"https://chattanooga-marathon-alex.ngrok.io";
+  NSString *url = [NSString stringWithFormat:@"%@/api/1.0/samples/%@/%@", host, self.deviceName, self.session];
+  STHTTPRequest *request = [STHTTPRequest requestWithURLString:url];
+  
+  request.rawPOSTData = [NSData dataWithBytes:scratchBuffer length:transmissionSize];
+//  request.rawPOSTData = [NSData dataWithBytes:scratchBuffer length:0];
   
   request.completionBlock = ^(NSDictionary *headers, NSString *body) {
-    NSLog(@"-- %@", body);
+    lastTransmitted = attemptedTransmission;
+    sending = false;
+    NSLog(@"sent %dbytes", transmissionSize);
   };
   
   request.errorBlock = ^(NSError *error) {
+    sending = false;
     NSLog(@"-- error: %@", error);
   };
   
+  sending = true;
   [request startAsynchronous];
 }
 
--(void) saveStr : (NSFileHandle * )file data : (NSMutableData *) data value : (const char*) str
-{
+-(void) saveStr : (NSFileHandle * )file data : (NSMutableData *) data value : (const char*) str {
   [file seekToEndOfFile];
   data = [NSMutableData dataWithBytes:str length:strlen(str)];
   [file writeData:data];
 }
 
--(void) saveDoubleVal : (NSFileHandle * )file data : (NSMutableData *) data value : (const double) val
-{
+-(void) saveDoubleVal : (NSFileHandle * )file data : (NSMutableData *) data value : (const double) val {
   NSString* str = [NSString stringWithFormat:@"%f",val];
   const char* myValStr = (const char*)[str UTF8String];
   [self saveStr:file data:data value:myValStr];
@@ -184,6 +229,19 @@ NSMutableData *data;
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
+}
+
+-(NSString *)parseSerialFromName: (NSString *)name {
+  NSError *error = NULL;
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\(.*?\\)"
+                                                                         options:NSRegularExpressionCaseInsensitive
+                                                                           error:&error];
+  NSRange match = [regex rangeOfFirstMatchInString:name options:0 range:NSMakeRange(0, [name length])];
+  if (!NSEqualRanges(match, NSMakeRange(NSNotFound, 0))) {
+    NSRange insideParens = NSMakeRange(match.location+1, match.length - 2);
+    return [name substringWithRange:insideParens];
+  }
+  return @"unknown";
 }
 
 @end
