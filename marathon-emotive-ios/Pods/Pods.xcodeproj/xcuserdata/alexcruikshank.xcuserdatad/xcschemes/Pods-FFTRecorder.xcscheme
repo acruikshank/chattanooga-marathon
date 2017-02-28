@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '016E6121B8B82AC751E365C4'
+               BlueprintIdentifier = 'B16F0174195B7DD56F02F5D8'
                BlueprintName = 'Pods-FFTRecorder'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-FFTRecorder.a'>

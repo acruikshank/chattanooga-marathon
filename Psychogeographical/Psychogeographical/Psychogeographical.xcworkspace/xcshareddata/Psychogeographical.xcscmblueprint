@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3D6951507ABDEB5427B72A8393C92A1DEBF199C3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "3D6951507ABDEB5427B72A8393C92A1DEBF199C3" : 9223372036854775807,
+    "F92708082F26B22D1F56E81A8C4AD5985736B5E6" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "32D2C4AA-1E98-4B58-9204-218BC741296A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "3D6951507ABDEB5427B72A8393C92A1DEBF199C3" : "apps\/",
+    "F92708082F26B22D1F56E81A8C4AD5985736B5E6" : "..\/scratch\/MicrosoftBand"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Psychogeographical",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Psychogeographical\/Psychogeographical\/Psychogeographical.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:acruikshank\/chattanooga-marathon.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3D6951507ABDEB5427B72A8393C92A1DEBF199C3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:xmlking\/MicrosoftBand.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F92708082F26B22D1F56E81A8C4AD5985736B5E6"
+    }
+  ]
+}

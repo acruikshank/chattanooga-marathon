@@ -1,0 +1,6 @@
+framework module MicrosoftBandKit_iOS {
+  umbrella header "MicrosoftBandKit_iOS.h"
+
+  export *
+  module * { export * }
+}

@@ -17,6 +17,10 @@
 		2D431EA51C4C429A00C4BFFD /* edk_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D431EA41C4C429A00C4BFFD /* edk_ios.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		2D431EA71C4C446300C4BFFD /* edk_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D431EA41C4C429A00C4BFFD /* edk_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2D431EAA1C4C456200C4BFFD /* Marathon Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D431EA91C4C456200C4BFFD /* Marathon Logo.png */; };
+		2D526E8A1C7CAC2F00C4EAB7 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D526E891C7CAC2F00C4EAB7 /* LocationTracker.m */; };
+		2D526E8D1C7CACD300C4EAB7 /* LocationShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D526E8C1C7CACD300C4EAB7 /* LocationShareModel.m */; };
+		2D526E901C7CACFB00C4EAB7 /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D526E8F1C7CACFB00C4EAB7 /* BackgroundTaskManager.m */; };
+		2D89EB851C868669008B608A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D89EB841C868669008B608A /* Settings.bundle */; };
 		E12361FEC7A3B5B9493D5884 /* libPods-FFTRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B91FA00A818263C06384AB19 /* libPods-FFTRecorder.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +64,13 @@
 		2D431E991C4C3EA000C4BFFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D431EA41C4C429A00C4BFFD /* edk_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = edk_ios.framework; sourceTree = "<group>"; };
 		2D431EA91C4C456200C4BFFD /* Marathon Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Marathon Logo.png"; sourceTree = "<group>"; };
+		2D526E881C7CAC2F00C4EAB7 /* LocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTracker.h; sourceTree = "<group>"; };
+		2D526E891C7CAC2F00C4EAB7 /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
+		2D526E8B1C7CACD300C4EAB7 /* LocationShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationShareModel.h; sourceTree = "<group>"; };
+		2D526E8C1C7CACD300C4EAB7 /* LocationShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationShareModel.m; sourceTree = "<group>"; };
+		2D526E8E1C7CACFB00C4EAB7 /* BackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
+		2D526E8F1C7CACFB00C4EAB7 /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
+		2D89EB841C868669008B608A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6E1A862085442BBCCBDE3619 /* Pods-FFTRecorder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FFTRecorder.release.xcconfig"; path = "Pods/Target Support Files/Pods-FFTRecorder/Pods-FFTRecorder.release.xcconfig"; sourceTree = "<group>"; };
 		8E0082064CFB4289F1518242 /* Pods-FFTRecorder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FFTRecorder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FFTRecorder/Pods-FFTRecorder.debug.xcconfig"; sourceTree = "<group>"; };
 		B91FA00A818263C06384AB19 /* libPods-FFTRecorder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FFTRecorder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +107,7 @@
 		2D431E711C4C3EA000C4BFFD = {
 			isa = PBXGroup;
 			children = (
+				2D89EB841C868669008B608A /* Settings.bundle */,
 				2D431EA91C4C456200C4BFFD /* Marathon Logo.png */,
 				2D431E7C1C4C3EA000C4BFFD /* FFTRecorder */,
 				2D431E961C4C3EA000C4BFFD /* FFTRecorderTests */,
@@ -118,6 +130,12 @@
 		2D431E7C1C4C3EA000C4BFFD /* FFTRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				2D526E8B1C7CACD300C4EAB7 /* LocationShareModel.h */,
+				2D526E8C1C7CACD300C4EAB7 /* LocationShareModel.m */,
+				2D526E881C7CAC2F00C4EAB7 /* LocationTracker.h */,
+				2D526E891C7CAC2F00C4EAB7 /* LocationTracker.m */,
+				2D526E8E1C7CACFB00C4EAB7 /* BackgroundTaskManager.h */,
+				2D526E8F1C7CACFB00C4EAB7 /* BackgroundTaskManager.m */,
 				2D431E801C4C3EA000C4BFFD /* AppDelegate.h */,
 				2D431E811C4C3EA000C4BFFD /* AppDelegate.m */,
 				2D431E831C4C3EA000C4BFFD /* ViewController.h */,
@@ -249,6 +267,7 @@
 			files = (
 				2D431E8D1C4C3EA000C4BFFD /* LaunchScreen.storyboard in Resources */,
 				2D431E8A1C4C3EA000C4BFFD /* Assets.xcassets in Resources */,
+				2D89EB851C868669008B608A /* Settings.bundle in Resources */,
 				2D431E881C4C3EA000C4BFFD /* Main.storyboard in Resources */,
 				2D431EAA1C4C456200C4BFFD /* Marathon Logo.png in Resources */,
 			);
@@ -317,7 +336,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D431E851C4C3EA000C4BFFD /* ViewController.m in Sources */,
+				2D526E8A1C7CAC2F00C4EAB7 /* LocationTracker.m in Sources */,
 				2D431E821C4C3EA000C4BFFD /* AppDelegate.m in Sources */,
+				2D526E8D1C7CACD300C4EAB7 /* LocationShareModel.m in Sources */,
+				2D526E901C7CACFB00C4EAB7 /* BackgroundTaskManager.m in Sources */,
 				2D431E7F1C4C3EA000C4BFFD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -457,7 +479,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carbonfive.FFTRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4d67d15a-2319-4b3a-a665-a5aa266b3931";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -478,7 +500,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carbonfive.FFTRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4d67d15a-2319-4b3a-a665-a5aa266b3931";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

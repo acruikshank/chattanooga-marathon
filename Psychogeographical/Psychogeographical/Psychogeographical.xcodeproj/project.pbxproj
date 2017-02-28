@@ -1,0 +1,492 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 47;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2D25A5781DD00593006DD94D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D25A5771DD00593006DD94D /* Assets.xcassets */; };
+		2D350ADF1E00CED400048778 /* DataFileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D350ADE1E00CED400048778 /* DataFileTableViewCell.m */; };
+		2D7D8CD71DF514A40025344D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D7D8CD61DF514A40025344D /* GoogleService-Info.plist */; };
+		2D7D8CDE1DF5B0540025344D /* rec-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D7D8CDD1DF5B0540025344D /* rec-circle.png */; };
+		2D7D8CE01DF5B0760025344D /* cloud-upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D7D8CDF1DF5B0760025344D /* cloud-upload.png */; };
+		2D932DBC1E2DC9B600EEF7DC /* MicrosoftBandKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D932DB81E2DC81E00EEF7DC /* MicrosoftBandKit_iOS.framework */; };
+		2DB9CBEF1E4F946300276B45 /* edk_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB9CBEE1E4F946300276B45 /* edk_ios.framework */; };
+		2DB9CBF01E4F946300276B45 /* edk_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB9CBEE1E4F946300276B45 /* edk_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2DCBCB9E1DCEA06D005F8141 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCBCB9D1DCEA06D005F8141 /* main.m */; };
+		2DCBCBA11DCEA06D005F8141 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCBCBA01DCEA06D005F8141 /* AppDelegate.m */; };
+		2DCBCBA41DCEA06D005F8141 /* RecordController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DCBCBA31DCEA06D005F8141 /* RecordController.mm */; };
+		2DCBCBA71DCEA06D005F8141 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCBCBA61DCEA06D005F8141 /* UploadViewController.m */; };
+		2DCBCBAA1DCEA06D005F8141 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DCBCBA81DCEA06D005F8141 /* Main.storyboard */; };
+		2DCBCBAF1DCEA06D005F8141 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DCBCBAD1DCEA06D005F8141 /* LaunchScreen.storyboard */; };
+		2DCBCBBC1DCEA364005F8141 /* LocationShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCBCBB71DCEA364005F8141 /* LocationShareModel.m */; };
+		2DCBCBBD1DCEA364005F8141 /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCBCBB91DCEA364005F8141 /* LocationTracker.m */; };
+		2DCBCBBE1DCEA364005F8141 /* BackgroundTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCBCBBB1DCEA364005F8141 /* BackgroundTaskManager.m */; };
+		BEE693147ED1761E85255E8A /* libPods-Psychogeographical.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFEA6B3F89F07BBA3D7BEDA7 /* libPods-Psychogeographical.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2DCBCBC81DCEAB4A005F8141 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2DB9CBF01E4F946300276B45 /* edk_ios.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		196A62C516D53E07FA07C7D5 /* Pods-Psychogeographical.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psychogeographical.release.xcconfig"; path = "Pods/Target Support Files/Pods-Psychogeographical/Pods-Psychogeographical.release.xcconfig"; sourceTree = "<group>"; };
+		2D25A5771DD00593006DD94D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2D350ADD1E00CED400048778 /* DataFileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataFileTableViewCell.h; sourceTree = "<group>"; };
+		2D350ADE1E00CED400048778 /* DataFileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFileTableViewCell.m; sourceTree = "<group>"; };
+		2D4F31621E4FC53900F268D4 /* Psychogeographical.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Psychogeographical.entitlements; sourceTree = "<group>"; };
+		2D7D8CD61DF514A40025344D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2D7D8CDD1DF5B0540025344D /* rec-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rec-circle.png"; path = "../../../../../../Downloads/rec-circle.png"; sourceTree = "<group>"; };
+		2D7D8CDF1DF5B0760025344D /* cloud-upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cloud-upload.png"; path = "../../../../../../Downloads/cloud-upload.png"; sourceTree = "<group>"; };
+		2D932DB81E2DC81E00EEF7DC /* MicrosoftBandKit_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftBandKit_iOS.framework; sourceTree = "<group>"; };
+		2DB9CBEE1E4F946300276B45 /* edk_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = edk_ios.framework; sourceTree = "<group>"; };
+		2DCBCB991DCEA06D005F8141 /* Psychogeographical.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Psychogeographical.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DCBCB9D1DCEA06D005F8141 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2DCBCB9F1DCEA06D005F8141 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2DCBCBA01DCEA06D005F8141 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2DCBCBA21DCEA06D005F8141 /* RecordController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordController.h; sourceTree = "<group>"; };
+		2DCBCBA31DCEA06D005F8141 /* RecordController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RecordController.mm; sourceTree = "<group>"; };
+		2DCBCBA51DCEA06D005F8141 /* UploadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
+		2DCBCBA61DCEA06D005F8141 /* UploadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
+		2DCBCBA91DCEA06D005F8141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2DCBCBAE1DCEA06D005F8141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2DCBCBB01DCEA06D005F8141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DCBCBB61DCEA364005F8141 /* LocationShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationShareModel.h; sourceTree = "<group>"; };
+		2DCBCBB71DCEA364005F8141 /* LocationShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationShareModel.m; sourceTree = "<group>"; };
+		2DCBCBB81DCEA364005F8141 /* LocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTracker.h; sourceTree = "<group>"; };
+		2DCBCBB91DCEA364005F8141 /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
+		2DCBCBBA1DCEA364005F8141 /* BackgroundTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundTaskManager.h; sourceTree = "<group>"; };
+		2DCBCBBB1DCEA364005F8141 /* BackgroundTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundTaskManager.m; sourceTree = "<group>"; };
+		DFEA6B3F89F07BBA3D7BEDA7 /* libPods-Psychogeographical.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Psychogeographical.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E09BC86C25AA6250B7B5EDEB /* Pods-Psychogeographical.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Psychogeographical.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Psychogeographical/Pods-Psychogeographical.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2DCBCB961DCEA06D005F8141 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D932DBC1E2DC9B600EEF7DC /* MicrosoftBandKit_iOS.framework in Frameworks */,
+				2DB9CBEF1E4F946300276B45 /* edk_ios.framework in Frameworks */,
+				BEE693147ED1761E85255E8A /* libPods-Psychogeographical.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2D7D8CDC1DF5AD8B0025344D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2D7D8CDD1DF5B0540025344D /* rec-circle.png */,
+				2D7D8CDF1DF5B0760025344D /* cloud-upload.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2DCBCB901DCEA06D005F8141 = {
+			isa = PBXGroup;
+			children = (
+				2DB9CBEE1E4F946300276B45 /* edk_ios.framework */,
+				2D932DB81E2DC81E00EEF7DC /* MicrosoftBandKit_iOS.framework */,
+				2DCBCB9B1DCEA06D005F8141 /* Psychogeographical */,
+				2DCBCB9A1DCEA06D005F8141 /* Products */,
+				B7DD254C8E67B69B2CD437EA /* Pods */,
+				8C4E14D5F569878E65533B35 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2DCBCB9A1DCEA06D005F8141 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2DCBCB991DCEA06D005F8141 /* Psychogeographical.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2DCBCB9B1DCEA06D005F8141 /* Psychogeographical */ = {
+			isa = PBXGroup;
+			children = (
+				2D4F31621E4FC53900F268D4 /* Psychogeographical.entitlements */,
+				2DCBCBB61DCEA364005F8141 /* LocationShareModel.h */,
+				2DCBCBB71DCEA364005F8141 /* LocationShareModel.m */,
+				2DCBCBB81DCEA364005F8141 /* LocationTracker.h */,
+				2DCBCBB91DCEA364005F8141 /* LocationTracker.m */,
+				2DCBCBBA1DCEA364005F8141 /* BackgroundTaskManager.h */,
+				2DCBCBBB1DCEA364005F8141 /* BackgroundTaskManager.m */,
+				2DCBCB9F1DCEA06D005F8141 /* AppDelegate.h */,
+				2DCBCBA01DCEA06D005F8141 /* AppDelegate.m */,
+				2DCBCBA21DCEA06D005F8141 /* RecordController.h */,
+				2DCBCBA31DCEA06D005F8141 /* RecordController.mm */,
+				2DCBCBA51DCEA06D005F8141 /* UploadViewController.h */,
+				2DCBCBA61DCEA06D005F8141 /* UploadViewController.m */,
+				2D350ADD1E00CED400048778 /* DataFileTableViewCell.h */,
+				2D350ADE1E00CED400048778 /* DataFileTableViewCell.m */,
+				2D7D8CDC1DF5AD8B0025344D /* Resources */,
+				2DCBCB9C1DCEA06D005F8141 /* Supporting Files */,
+				2D25A5771DD00593006DD94D /* Assets.xcassets */,
+				2DCBCBA81DCEA06D005F8141 /* Main.storyboard */,
+				2DCBCBAD1DCEA06D005F8141 /* LaunchScreen.storyboard */,
+				2D7D8CD61DF514A40025344D /* GoogleService-Info.plist */,
+				2DCBCBB01DCEA06D005F8141 /* Info.plist */,
+			);
+			path = Psychogeographical;
+			sourceTree = "<group>";
+		};
+		2DCBCB9C1DCEA06D005F8141 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2DCBCB9D1DCEA06D005F8141 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8C4E14D5F569878E65533B35 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DFEA6B3F89F07BBA3D7BEDA7 /* libPods-Psychogeographical.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B7DD254C8E67B69B2CD437EA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E09BC86C25AA6250B7B5EDEB /* Pods-Psychogeographical.debug.xcconfig */,
+				196A62C516D53E07FA07C7D5 /* Pods-Psychogeographical.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2DCBCB981DCEA06D005F8141 /* Psychogeographical */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DCBCBB31DCEA06D005F8141 /* Build configuration list for PBXNativeTarget "Psychogeographical" */;
+			buildPhases = (
+				869CD7BA96E2095913CABF35 /* [CP] Check Pods Manifest.lock */,
+				2DCBCB951DCEA06D005F8141 /* Sources */,
+				2DCBCB961DCEA06D005F8141 /* Frameworks */,
+				2DCBCB971DCEA06D005F8141 /* Resources */,
+				2DCBCBC81DCEAB4A005F8141 /* Embed Frameworks */,
+				2FECC2245A0009121C1F340D /* [CP] Embed Pods Frameworks */,
+				B4CBFCDD6DEBE923D83BAED3 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Psychogeographical;
+			productName = Psychogeographical;
+			productReference = 2DCBCB991DCEA06D005F8141 /* Psychogeographical.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2DCBCB911DCEA06D005F8141 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Alex Cruikshank";
+				TargetAttributes = {
+					2DCBCB981DCEA06D005F8141 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = YE3Y8EE6RK;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 2DCBCB941DCEA06D005F8141 /* Build configuration list for PBXProject "Psychogeographical" */;
+			compatibilityVersion = "Xcode 6.3";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2DCBCB901DCEA06D005F8141;
+			productRefGroup = 2DCBCB9A1DCEA06D005F8141 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2DCBCB981DCEA06D005F8141 /* Psychogeographical */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2DCBCB971DCEA06D005F8141 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D7D8CE01DF5B0760025344D /* cloud-upload.png in Resources */,
+				2DCBCBAF1DCEA06D005F8141 /* LaunchScreen.storyboard in Resources */,
+				2D7D8CDE1DF5B0540025344D /* rec-circle.png in Resources */,
+				2D7D8CD71DF514A40025344D /* GoogleService-Info.plist in Resources */,
+				2D25A5781DD00593006DD94D /* Assets.xcassets in Resources */,
+				2DCBCBAA1DCEA06D005F8141 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2FECC2245A0009121C1F340D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psychogeographical/Pods-Psychogeographical-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		869CD7BA96E2095913CABF35 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B4CBFCDD6DEBE923D83BAED3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Psychogeographical/Pods-Psychogeographical-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2DCBCB951DCEA06D005F8141 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DCBCBA71DCEA06D005F8141 /* UploadViewController.m in Sources */,
+				2DCBCBA11DCEA06D005F8141 /* AppDelegate.m in Sources */,
+				2DCBCBA41DCEA06D005F8141 /* RecordController.mm in Sources */,
+				2DCBCBBC1DCEA364005F8141 /* LocationShareModel.m in Sources */,
+				2DCBCBBE1DCEA364005F8141 /* BackgroundTaskManager.m in Sources */,
+				2DCBCB9E1DCEA06D005F8141 /* main.m in Sources */,
+				2DCBCBBD1DCEA364005F8141 /* LocationTracker.m in Sources */,
+				2D350ADF1E00CED400048778 /* DataFileTableViewCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2DCBCBA81DCEA06D005F8141 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2DCBCBA91DCEA06D005F8141 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2DCBCBAD1DCEA06D005F8141 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2DCBCBAE1DCEA06D005F8141 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2DCBCBB11DCEA06D005F8141 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2DCBCBB21DCEA06D005F8141 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2DCBCBB41DCEA06D005F8141 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E09BC86C25AA6250B7B5EDEB /* Pods-Psychogeographical.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Psychogeographical/Psychogeographical.entitlements;
+				DEVELOPMENT_TEAM = YE3Y8EE6RK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = Psychogeographical/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = alexcruikshank.Psychogeographical;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2DCBCBB51DCEA06D005F8141 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 196A62C516D53E07FA07C7D5 /* Pods-Psychogeographical.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Psychogeographical/Psychogeographical.entitlements;
+				DEVELOPMENT_TEAM = YE3Y8EE6RK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = Psychogeographical/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = alexcruikshank.Psychogeographical;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2DCBCB941DCEA06D005F8141 /* Build configuration list for PBXProject "Psychogeographical" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DCBCBB11DCEA06D005F8141 /* Debug */,
+				2DCBCBB21DCEA06D005F8141 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2DCBCBB31DCEA06D005F8141 /* Build configuration list for PBXNativeTarget "Psychogeographical" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DCBCBB41DCEA06D005F8141 /* Debug */,
+				2DCBCBB51DCEA06D005F8141 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2DCBCB911DCEA06D005F8141 /* Project object */;
+}

@@ -8,7 +8,9 @@
 
 #import "ViewController.h"
 #import <edk/Iedk.h>
+#import <CoreLocation/CoreLocation.h>
 #import "STHTTPRequest.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 BOOL isConnected = NO;
 
@@ -27,6 +29,7 @@ const int BUFFER_SIZE = 1200;
 
 @property (nonatomic, retain) NSString *deviceName;
 @property (nonatomic, retain) NSString *session;
+@property (nonatomic, retain) CLLocationManager *locationManager;
 
 @end
 
@@ -43,6 +46,7 @@ int state = 0;
 int currentPointer = 0;
 int lastTransmitted = 0;
 int lastAttempted = 0;
+CLLocationCoordinate2D currentLocation;
 Float64 buffer[SAMPLE_SIZE*BUFFER_SIZE];
 Float64 scratchBuffer[SAMPLE_SIZE*BUFFER_SIZE];
 
@@ -80,14 +84,17 @@ NSMutableData *data;
   
   [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(getNextEvent) userInfo:nil repeats:YES];
   [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(transmit) userInfo:nil repeats:YES];
-  
+
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  self.destination.text = [defaults stringForKey:@"host_preference"];
 }
 
 -(void) getNextEvent {
   int numberDevice = IEE_GetInsightDeviceCount();
   if(numberDevice > 0 && !isConnected) {
     IEE_ConnectInsightDevice(0);
-    self.deviceName = [self parseSerialFromName:[[NSString alloc] initWithCString:IEE_GetInsightDeviceName(0) encoding:NSASCIIStringEncoding]];
+    NSString *name = [[NSString alloc] initWithCString:(const char *)IEE_GetInsightDeviceName(0) encoding:NSASCIIStringEncoding];
+    self.deviceName = [self parseSerialFromName:name];
     NSLog(@"Connected %@", self.deviceName);
     isConnected = YES;
   }
@@ -104,9 +111,10 @@ NSMutableData *data;
     // Log the EmoState if it has been updated
     if (eventType == IEE_UserAdded)
     {
+
       NSLog(@"User Added");
       IEE_FFTSetWindowingType(userID, IEE_HANN);
-      self.status.text = @"Connected";
+      self.status.text = [NSString stringWithFormat:@"Connected: %@", self.deviceName];
       readytocollect = TRUE;
       self.transmitButton.alpha = 1.0;
     }
@@ -151,10 +159,14 @@ NSMutableData *data;
   }
 }
 
+-(void)locationUpdate:(CLLocationCoordinate2D)location {
+  currentLocation = location;
+}
+
 -(IBAction)toggleTransmit:(id)sender {
   if (transmitting) {
-    transmitting = false;
     [self.transmitButton setTitle:@"Transmit" forState:UIControlStateNormal];
+    [self stopTransmitting];
   } else {
     [self.transmitButton setTitle:@"Stop Transmitting" forState:UIControlStateNormal];
     [self startTransmitting];
@@ -167,6 +179,14 @@ NSMutableData *data;
   lastAttempted = 0;
   [self updateSession];
   transmitting = true;
+  [self startLocationUpdates];
+}
+
+-(void)stopTransmitting {
+  transmitting = false;
+  if (self.locationManager != nil) {
+    [self.locationManager stopUpdatingLocation];
+  }
 }
 
 -(void) updateSession {
@@ -183,8 +203,8 @@ NSMutableData *data;
     lastTransmitted = (lastTransmitted+1) % BUFFER_SIZE;
 }
 
--(void) transmit {
-  if (!transmitting || sending || lastTransmitted == currentPointer) return;
+-(BOOL) transmit {
+  if (!transmitting || sending || lastTransmitted == currentPointer) return false;
   
   int sampleBytes = SAMPLE_SIZE*sizeof(Float64);
   int transmissionSize = 0;
@@ -198,13 +218,22 @@ NSMutableData *data;
     transmissionSize = sampleBytes * (BUFFER_SIZE - lastTransmitted + currentPointer);
   }
   
-  NSString *host = @"https://chama-emote.herokuapp.com";
-//  NSString *host = @"https://chattanooga-marathon-alex.ngrok.io";
-  NSString *url = [NSString stringWithFormat:@"%@/api/1.0/samples/%@/%@", host, self.deviceName, self.session];
+  // Get host from defaults
+  //  NSString *host = @"chama-emote.herokuapp.com";
+  //  NSString *host = @"chattanooga-marathon-alex.ngrok.io";
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSString *host = [defaults stringForKey:@"host_preference"];
+  if (!host || [host length] == 0) {
+    host = @"chattanooga-marathon-alex.ngrok.io";
+  }
+
+  NSString *url = [NSString stringWithFormat:@"http://%@/api/1.0/samples/%@/%@", host, self.deviceName, self.session];
   STHTTPRequest *request = [STHTTPRequest requestWithURLString:url];
   
+  NSString *location = [NSString stringWithFormat:@"%f;%f", currentLocation.latitude, currentLocation.longitude];
+  [request setHeaderWithName:@"Geo-Position" value:location];
+  
   request.rawPOSTData = [NSData dataWithBytes:scratchBuffer length:transmissionSize];
-//  request.rawPOSTData = [NSData dataWithBytes:scratchBuffer length:0];
   
   request.completionBlock = ^(NSDictionary *headers, NSString *body) {
     lastTransmitted = attemptedTransmission;
@@ -219,6 +248,26 @@ NSMutableData *data;
   
   sending = true;
   [request startAsynchronous];
+  return true;
+}
+
+- (void)startLocationUpdates {
+  // Create the location manager if this object does not
+  // already have one.
+//  if (nil == self.locationManager)
+//    self.locationManager = [[CLLocationManager alloc] init];
+//  
+//  [self.locationManager requestAlwaysAuthorization];
+//  self.locationManager.pausesLocationUpdatesAutomatically = false;
+//
+//  self.locationManager.delegate = self;
+//  self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//  
+//  
+//  // Set a movement threshold for new events.
+//  self.locationManager.distanceFilter = 1; // meters
+  
+//  [self.locationManager startUpdatingLocation];
 }
 
 -(void) saveStr : (NSFileHandle * )file data : (NSMutableData *) data value : (const char*) str {
