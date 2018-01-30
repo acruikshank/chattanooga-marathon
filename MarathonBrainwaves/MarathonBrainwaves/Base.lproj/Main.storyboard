@@ -51,17 +51,6 @@
                                     <action selector="toggleTransmit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pwh-cA-OzB"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wD1-hR-jrF">
-                                <rect key="frame" x="13" y="799" width="144" height="67"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6kr-bm-zuh">
-                                        <rect key="frame" x="0.0" y="0.0" width="144" height="67"/>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="67" id="qyQ-WP-flU"/>
-                                </constraints>
-                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXc-RX-3OQ">
                                 <rect key="frame" x="13" y="432" width="507" height="71"/>
                                 <constraints>
@@ -90,51 +79,37 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqP-fz-C45">
-                                <rect key="frame" x="16" y="557" width="500" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="20" y="511" width="500" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.090196078431372548" green="0.2627450980392157" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="tdx-lZ-Q3g" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="6wE-PA-jYJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="tdx-lZ-Q3g" secondAttribute="trailing" id="EwR-h6-gq2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="mqP-fz-C45" secondAttribute="trailing" id="HhV-b3-De6"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="mqP-fz-C45" secondAttribute="trailing" id="ILX-k2-IsK"/>
-                            <constraint firstItem="tdx-lZ-Q3g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="MX8-qx-KnF"/>
-                            <constraint firstItem="wD1-hR-jrF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Naz-MB-1g6"/>
-                            <constraint firstItem="mqP-fz-C45" firstAttribute="top" secondItem="tdx-lZ-Q3g" secondAttribute="bottom" constant="10" id="Nm1-SF-3zu"/>
+                            <constraint firstItem="mqP-fz-C45" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O66-vl-ALR"/>
                             <constraint firstItem="gXc-RX-3OQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ONX-Bc-kCH"/>
-                            <constraint firstItem="mqP-fz-C45" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="P3W-i1-afe"/>
                             <constraint firstItem="tdx-lZ-Q3g" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Pc2-Ok-d1p"/>
-                            <constraint firstItem="mqP-fz-C45" firstAttribute="centerY" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="RPL-Xy-bRT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tdx-lZ-Q3g" secondAttribute="trailing" constant="1" id="WPa-kC-i2O"/>
                             <constraint firstItem="gXc-RX-3OQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="0.5" id="Wmr-CQ-buN">
                                 <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                             </constraint>
-                            <constraint firstItem="mqP-fz-C45" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Ywx-0t-d7o"/>
                             <constraint firstItem="X9t-qh-ksK" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="be2-40-WFa"/>
                             <constraint firstItem="tdx-lZ-Q3g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fDf-Lg-g6t"/>
                             <constraint firstItem="X9t-qh-ksK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fKS-VA-Ley"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="X9t-qh-ksK" secondAttribute="bottom" constant="20" id="h5I-5c-iQk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gXc-RX-3OQ" secondAttribute="trailing" constant="1" id="jv7-qp-iGX"/>
-                            <constraint firstItem="mqP-fz-C45" firstAttribute="top" secondItem="gXc-RX-3OQ" secondAttribute="bottom" constant="8" symbolic="YES" id="s9J-KW-GF8"/>
-                            <constraint firstItem="mqP-fz-C45" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="5" id="vjP-4p-rsZ"/>
+                            <constraint firstItem="mqP-fz-C45" firstAttribute="top" secondItem="gXc-RX-3OQ" secondAttribute="bottom" constant="10" id="nti-hH-GVj"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="gXc-RX-3OQ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="MX8-qx-KnF"/>
                                 <exclude reference="WPa-kC-i2O"/>
                                 <exclude reference="ONX-Bc-kCH"/>
                                 <exclude reference="Wmr-CQ-buN"/>
                                 <exclude reference="jv7-qp-iGX"/>
-                                <exclude reference="ILX-k2-IsK"/>
-                                <exclude reference="Nm1-SF-3zu"/>
-                                <exclude reference="Ywx-0t-d7o"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -142,7 +117,6 @@
                                 <include reference="gXc-RX-3OQ"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="MX8-qx-KnF"/>
                                 <include reference="WPa-kC-i2O"/>
                                 <include reference="ONX-Bc-kCH"/>
                                 <include reference="Wmr-CQ-buN"/>

@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>14</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -40,8 +40,10 @@
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Used to collect Emotive Data</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>ENABLE</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Used to correlate brainwave data with location data.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Used to correlate brainwave data with location data.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>

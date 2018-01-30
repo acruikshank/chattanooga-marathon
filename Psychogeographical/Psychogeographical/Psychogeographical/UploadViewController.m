@@ -1,11 +1,3 @@
-//
-//  UploadViewController.m
-//  Psychogeographical
-//
-//  Created by Alex Cruikshank on 11/5/16.
-//  Copyright © 2016 Alex Cruikshank. All rights reserved.
-//
-
 #import "UploadViewController.h"
 
 static NSString *const kKeychainItemName = @"Drive API";

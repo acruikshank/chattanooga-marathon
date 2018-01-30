@@ -215,7 +215,6 @@
 
 //Send the location to Server
 - (void)updateLocationToServer {
-  
   NSLog(@"updateLocationToServer");
   
   // Find the best location from the array based on accuracy
@@ -252,9 +251,11 @@
   }
   
   NSLog(@"Send to Server: Latitude(%f) Longitude(%f) Accuracy(%f)",self.myLocation.latitude, self.myLocation.longitude,self.myLocationAccuracy);
-  RecordController *controller = (RecordController *) [UIApplication sharedApplication].keyWindow.rootViewController;
-  if (controller)
-    [controller locationUpdate: self.myLocation];
+  UITabBarController *controller = (UITabBarController *) [UIApplication sharedApplication].keyWindow.rootViewController;
+  if (controller) {
+    RecordController *recordController = (RecordController *) [controller viewControllers][0];
+    [recordController locationUpdate: self.myLocation];
+  }
   
   //TODO: Your code to send the self.myLocation and self.myLocationAccuracy to your server
   

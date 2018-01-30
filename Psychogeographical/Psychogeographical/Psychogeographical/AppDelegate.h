@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <Google/SignIn.h>
+#import "LocationTracker.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property LocationTracker * locationTracker;
+@property (nonatomic) NSTimer* locationUpdateTimer;
 
 
 @end

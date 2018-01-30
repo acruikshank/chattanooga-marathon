@@ -201,6 +201,7 @@ NSMutableData *data;
 
 -(void)locationUpdate:(CLLocationCoordinate2D)location {
   currentLocation = location;
+  NSLog(@"current location: %f, %f", currentLocation.longitude, currentLocation.latitude);
 }
 
 -(IBAction)toggleRecord:(id)sender {
@@ -225,7 +226,7 @@ NSMutableData *data;
   currentPointer = 0;
   [self updateSession];
   recording = true;
-  [self startLocationUpdates];
+//  [self startLocationUpdates];
 }
 
 -(void)stopRecording {
@@ -245,21 +246,21 @@ NSMutableData *data;
 - (void)startLocationUpdates {
   // Create the location manager if this object does not
   // already have one.
-  if (nil == self.locationManager)
-    self.locationManager = [[CLLocationManager alloc] init];
-
-  [self.locationManager requestAlwaysAuthorization];
-  self.locationManager.pausesLocationUpdatesAutomatically = false;
-
-  self.locationManager.delegate = self;
-  self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//  if (nil == self.locationManager)
+//    self.locationManager = [[CLLocationManager alloc] init];
+//
+//  [self.locationManager requestAlwaysAuthorization];
+//  self.locationManager.pausesLocationUpdatesAutomatically = false;
+//
+//  self.locationManager.delegate = self;
+//  self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 
 
   // Set a movement threshold for new events.
-  self.locationManager.distanceFilter = 1; // meters
-
-  currentLocation = [self.locationManager location].coordinate;
-  [self.locationManager startUpdatingLocation];
+//  self.locationManager.distanceFilter = 1; // meters
+//
+//  currentLocation = [self.locationManager location].coordinate;
+//  [self.locationManager startUpdatingLocation];
 }
 
 -(NSString *)timestamp {
@@ -320,11 +321,11 @@ NSMutableData *data;
       altimeterChange.value = (double) altimeterData.totalGain - (double) altimeterData.totalLoss;
       altimeterRate.lastReading = [[NSDate date] timeIntervalSince1970];
       altimeterRate.value = (double) altimeterData.rate;
-      NSLog(@"Got altimeter gain: %lu, loss: %lu, diff: %ld, rate: %f",
-            (unsigned long) altimeterData.totalGain,
-            (unsigned long) altimeterData.totalLoss,
-            ((long) altimeterData.totalGain) - ((long) altimeterData.totalLoss),
-            altimeterData.rate);
+//      NSLog(@"Got altimeter gain: %lu, loss: %lu, diff: %ld, rate: %f",
+//            (unsigned long) altimeterData.totalGain,
+//            (unsigned long) altimeterData.totalLoss,
+//            ((long) altimeterData.totalGain) - ((long) altimeterData.totalLoss),
+//            altimeterData.rate);
     }
   }];
   if (subscriptionError){
@@ -338,7 +339,7 @@ NSMutableData *data;
       gsrResistance.lastReading = [[NSDate date] timeIntervalSince1970];
       gsrResistance.value = (double) gsrData.resistance;
 
-      NSLog(@"Got gsr resistence: %lu", (unsigned long) gsrData.resistance);
+//      NSLog(@"Got gsr resistence: %lu", (unsigned long) gsrData.resistance);
     }
   }];
   if (subscriptionError){
@@ -351,7 +352,7 @@ NSMutableData *data;
     if (!error) {
       skinTemperature.lastReading = [[NSDate date] timeIntervalSince1970];
       skinTemperature.value = (double) skinTempData.temperature;
-      NSLog(@"Got skin temperature: %f", (double) skinTempData.temperature);
+//      NSLog(@"Got skin temperature: %f", (double) skinTempData.temperature);
     }
   }];
   if (subscriptionError){
@@ -369,7 +370,7 @@ NSMutableData *data;
     if (!error) {
       heartRate.lastReading = [[NSDate date] timeIntervalSince1970];
       heartRate.value = (double) heartRateData.heartRate;
-      NSLog(@"Got heart rate %lu", (unsigned long) heartRateData.heartRate);
+//      NSLog(@"Got heart rate %lu", (unsigned long) heartRateData.heartRate);
     }
   }];
   if (subscriptionError){
@@ -382,7 +383,7 @@ NSMutableData *data;
     if (!error) {
       rrInterval.lastReading = [[NSDate date] timeIntervalSince1970];
       rrInterval.value = (double) rrIntervalData.interval;
-      NSLog(@"Got interval rate data %f", (double) rrIntervalData.interval);
+//      NSLog(@"Got interval rate data %f", (double) rrIntervalData.interval);
     }
                                                   }];
   if (subscriptionError){

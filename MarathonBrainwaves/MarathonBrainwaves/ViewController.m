@@ -252,7 +252,6 @@ NSMutableData *data;
 
   NSString *url = [NSString stringWithFormat:@"https://%@/api/1.0/samples/%@/%@", host, self.deviceName, self.session];
   STHTTPRequest *request = [STHTTPRequest requestWithURLString:url];
-  request.useUploadTaskInBackground = YES;
   
   NSString *location = [NSString stringWithFormat:@"%f;%f", currentLocation.latitude, currentLocation.longitude];
   [request setHeaderWithName:@"Geo-Position" value:location];
