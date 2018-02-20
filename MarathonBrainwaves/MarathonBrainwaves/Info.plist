@@ -31,8 +31,10 @@
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Used to collect Emotiv data</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Enable </string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Used to correlate brainwave data with location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Used to correlate brainwave data with location</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
