@@ -254,6 +254,7 @@ NSMutableData *data;
   STHTTPRequest *request = [STHTTPRequest requestWithURLString:url];
   
   NSString *location = [NSString stringWithFormat:@"%f;%f", currentLocation.latitude, currentLocation.longitude];
+  NSLog(@"Current Position: %f, %f", currentLocation.longitude, currentLocation.latitude);
   [request setHeaderWithName:@"Geo-Position" value:location];
   
   request.rawPOSTData = [NSData dataWithBytes:scratchBuffer length:transmissionSize];

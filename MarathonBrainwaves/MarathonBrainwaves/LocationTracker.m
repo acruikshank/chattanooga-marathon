@@ -123,13 +123,13 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
   
-  NSLog(@"locationManager didUpdateLocations");
   
   for(int i=0;i<locations.count;i++){
     CLLocation * newLocation = [locations objectAtIndex:i];
     CLLocationCoordinate2D theLocation = newLocation.coordinate;
     CLLocationAccuracy theAccuracy = newLocation.horizontalAccuracy;
-    
+    NSLog(@"locationManager didUpdateLocations %f, %f", theLocation.longitude, theLocation.latitude);
+
     //Select only valid location and also location with good accuracy
     if(newLocation!=nil&&theAccuracy>0
 //       &&theAccuracy<2000
@@ -253,6 +253,7 @@
   
   NSLog(@"Send to Server: Latitude(%f) Longitude(%f) Accuracy(%f)",self.myLocation.latitude, self.myLocation.longitude,self.myLocationAccuracy);
   ViewController *controller = (ViewController *) [UIApplication sharedApplication].keyWindow.rootViewController;
+  NSLog(@"Logging to view controller %@", controller);
   if (controller)
     [controller locationUpdate: self.myLocation];
   
