@@ -56,5 +56,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Used to correlate brainwave data with emotiv device</string>
 </dict>
 </plist>

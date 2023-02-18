@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "STHTTPRequest.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "HeartRate.h"
 
 BOOL isConnected = NO;
 
@@ -27,10 +28,14 @@ const int BUFFER_SIZE = 1200;
 
 @interface ViewController ()
 
-@property (nonatomic, retain) NSString *deviceName;
+
 @property (nonatomic, retain) NSString *session;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) NSString *expectedDeviceName;
+@property (nonatomic, retain) NSString *deviceName;
+@property (nonatomic, retain) NSString *expectedHRDeviceName;
+@property (nonatomic, retain) NSString *hrDeviceName;
+@property (nonatomic, strong) HeartRate *heartRate;
 
 @end
 
@@ -92,8 +97,13 @@ NSMutableData *data;
   self.expectedDeviceName = [defaults stringForKey:@"device"];
   if (!self.expectedDeviceName || [self.expectedDeviceName length] == 0)
     self.expectedDeviceName = @"";
+    
+  self.expectedHRDeviceName = [defaults stringForKey:@"heart"];
+  if (self.expectedHRDeviceName && [self.expectedHRDeviceName length] != 0)
+    self.heartRate = [[HeartRate alloc] initWithName:self.expectedHRDeviceName];
 }
 
+// Polar H10 BD487724
 // 596849CA, 5A68593D
 
 -(void) getNextEvent {
@@ -101,18 +111,20 @@ NSMutableData *data;
   if (deviceIndex >= 0 && !isConnected) {
     IEE_ConnectInsightDevice(deviceIndex);
     self.deviceName = [self getDeviceName:deviceIndex];
-    NSLog(@"Connected %@", self.deviceName);
+    NSLog(@"Line: %d: Connected %@", __LINE__, self.deviceName);
     isConnected = YES;
   } else {
     isConnected = NO;
+//      NSLog(@"not connected");
   }
   
   int state = IEE_EngineGetNextEvent(eEvent);
   unsigned int userID = 0;
+
   
   if (state == EDK_OK)
   {
-    
+      NSLog(@"test");
     IEE_Event_t eventType = IEE_EmoEngineEventGetType(eEvent);
     IEE_EmoEngineEventGetUserId(eEvent, &userID);
     
@@ -250,7 +262,7 @@ NSMutableData *data;
     host = @"chattanooga-marathon-alex.ngrok.io";
   }
 
-  NSString *url = [NSString stringWithFormat:@"https://%@/api/1.0/samples/%@/%@", host, self.deviceName, self.session];
+  NSString *url = [NSString stringWithFormat:@"http://%@/api/1.0/samples/%@/%@", host, self.deviceName, self.session];
   STHTTPRequest *request = [STHTTPRequest requestWithURLString:url];
   
   NSString *location = [NSString stringWithFormat:@"%f;%f", currentLocation.latitude, currentLocation.longitude];
