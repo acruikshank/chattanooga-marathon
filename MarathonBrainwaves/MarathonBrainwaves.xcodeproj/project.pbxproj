@@ -19,6 +19,9 @@
 		2D1E8F661E4C163900CC68F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D1E8F621E4C163900CC68F7 /* Main.storyboard */; };
 		2D1E8F6A1E4C170800CC68F7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D1E8F691E4C170800CC68F7 /* Settings.bundle */; };
 		2D1E8F711E4C1C5900CC68F7 /* Marathon Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D1E8F701E4C1C5900CC68F7 /* Marathon Logo.png */; };
+		2D351E0729A1ADB700098180 /* HeartRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D351E0229A1ADB700098180 /* HeartRate.m */; };
+		2D351E0829A1ADB700098180 /* RingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D351E0329A1ADB700098180 /* RingBuffer.m */; };
+		2D351E0929A1ADB700098180 /* RRValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D351E0529A1ADB700098180 /* RRValues.m */; };
 		2D5B42C81E4F60D700F1F4DB /* edk_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5B42C71E4F60D700F1F4DB /* edk_ios.framework */; };
 		2D5B42C91E4F60D700F1F4DB /* edk_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5B42C71E4F60D700F1F4DB /* edk_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2D5B42CB1E4F770100F1F4DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5B42CA1E4F770100F1F4DB /* Assets.xcassets */; };
@@ -60,6 +63,12 @@
 		2D1E8F631E4C163900CC68F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		2D1E8F691E4C170800CC68F7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		2D1E8F701E4C1C5900CC68F7 /* Marathon Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Marathon Logo.png"; sourceTree = SOURCE_ROOT; };
+		2D351E0129A1ADB700098180 /* HeartRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartRate.h; sourceTree = "<group>"; };
+		2D351E0229A1ADB700098180 /* HeartRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartRate.m; sourceTree = "<group>"; };
+		2D351E0329A1ADB700098180 /* RingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RingBuffer.m; sourceTree = "<group>"; };
+		2D351E0429A1ADB700098180 /* RRValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRValues.h; sourceTree = "<group>"; };
+		2D351E0529A1ADB700098180 /* RRValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRValues.m; sourceTree = "<group>"; };
+		2D351E0629A1ADB700098180 /* RingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RingBuffer.h; sourceTree = "<group>"; };
 		2D5B42C71E4F60D700F1F4DB /* edk_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = edk_ios.framework; sourceTree = "<group>"; };
 		2D5B42CA1E4F770100F1F4DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = MarathonBrainwaves/Assets.xcassets; sourceTree = "<group>"; };
 		4F39F65813BB8B7EC8505342 /* Pods-MarathonBrainwaves.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarathonBrainwaves.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MarathonBrainwaves/Pods-MarathonBrainwaves.debug.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +127,12 @@
 		2D0208CE1E4C15310079CB61 /* MarathonBrainwaves */ = {
 			isa = PBXGroup;
 			children = (
+				2D351E0129A1ADB700098180 /* HeartRate.h */,
+				2D351E0229A1ADB700098180 /* HeartRate.m */,
+				2D351E0629A1ADB700098180 /* RingBuffer.h */,
+				2D351E0329A1ADB700098180 /* RingBuffer.m */,
+				2D351E0429A1ADB700098180 /* RRValues.h */,
+				2D351E0529A1ADB700098180 /* RRValues.m */,
 				2D0208D21E4C15310079CB61 /* AppDelegate.h */,
 				2D0208D31E4C15310079CB61 /* AppDelegate.m */,
 				2D0208D51E4C15310079CB61 /* ViewController.h */,
@@ -203,6 +218,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -287,9 +303,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D1E8F5B1E4C160B00CC68F7 /* BackgroundTaskManager.m in Sources */,
+				2D351E0829A1ADB700098180 /* RingBuffer.m in Sources */,
+				2D351E0929A1ADB700098180 /* RRValues.m in Sources */,
 				2D0208D71E4C15310079CB61 /* ViewController.m in Sources */,
 				2D0208D41E4C15310079CB61 /* AppDelegate.m in Sources */,
 				2D1E8F5C1E4C160B00CC68F7 /* LocationShareModel.m in Sources */,
+				2D351E0729A1ADB700098180 /* HeartRate.m in Sources */,
 				2D0208D11E4C15310079CB61 /* main.m in Sources */,
 				2D1E8F5D1E4C160B00CC68F7 /* LocationTracker.m in Sources */,
 			);

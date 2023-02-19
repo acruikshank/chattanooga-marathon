@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,7 +35,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9t-qh-ksK">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9t-qh-ksK">
                                 <rect key="frame" x="20" y="873" width="500" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="xO4-hy-ZG2"/>
@@ -84,6 +79,25 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1v-CT-bnf">
+                                <rect key="frame" x="13" y="511" width="507" height="71"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="fv0-V8-zPu"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="fv0-V8-zPu"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <mask key="constraints">
+                                        <include reference="fv0-V8-zPu"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.090196078431372548" green="0.2627450980392157" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -106,10 +120,10 @@
                                 <exclude reference="gXc-RX-3OQ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="WPa-kC-i2O"/>
                                 <exclude reference="ONX-Bc-kCH"/>
                                 <exclude reference="Wmr-CQ-buN"/>
                                 <exclude reference="jv7-qp-iGX"/>
+                                <exclude reference="WPa-kC-i2O"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -117,10 +131,10 @@
                                 <include reference="gXc-RX-3OQ"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="WPa-kC-i2O"/>
                                 <include reference="ONX-Bc-kCH"/>
                                 <include reference="Wmr-CQ-buN"/>
                                 <include reference="jv7-qp-iGX"/>
+                                <include reference="WPa-kC-i2O"/>
                             </mask>
                         </variation>
                     </view>
@@ -128,6 +142,7 @@
                     <size key="freeformSize" width="540" height="960"/>
                     <connections>
                         <outlet property="destination" destination="mqP-fz-C45" id="YMq-WF-qJd"/>
+                        <outlet property="heartMonitorStatus" destination="z1v-CT-bnf" id="9zS-XZ-MFz"/>
                         <outlet property="status" destination="gXc-RX-3OQ" id="9NS-RO-o8H"/>
                         <outlet property="transmitButton" destination="X9t-qh-ksK" id="4k2-mC-hfG"/>
                     </connections>

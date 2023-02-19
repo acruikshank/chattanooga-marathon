@@ -23,7 +23,7 @@ const char header[] = "Time, Theta AF3,Alpha AF3,Low beta AF3,High beta AF3, Gam
 
 const char *newLine = "\n";
 const char *comma = ",";
-const int SAMPLE_SIZE = 26;
+const int SAMPLE_SIZE = 28;
 const int BUFFER_SIZE = 1200;
 
 @interface ViewController ()
@@ -115,7 +115,10 @@ NSMutableData *data;
     isConnected = YES;
   } else {
     isConnected = NO;
-//      NSLog(@"not connected");
+  }
+  
+  if (_heartRate) {
+    self.heartMonitorStatus.text = _heartRate.connected ? @"heart monitor connected" : @"";
   }
   
   int state = IEE_EngineGetNextEvent(eEvent);
@@ -149,11 +152,10 @@ NSMutableData *data;
   
   if (readytocollect)
   {
-    double value[26];
-    memset(value, 0, 26*sizeof(double));
+    double value[SAMPLE_SIZE];
+    memset(value, 0, SAMPLE_SIZE*sizeof(double));
     int overallResult = EDK_OK;
     
-    value[0] = [[NSDate date] timeIntervalSince1970];
     for(int i=0 ; i< sizeof(ChannelList)/sizeof(IEE_DataChannel_t) ; ++i)
     {
       int result = IEE_GetAverageBandPowers(userID, ChannelList[i], &value[i*5+1], &value[i*5+2], &value[i*5+3], &value[i*5+4], &value[i*5+5]);
@@ -161,7 +163,16 @@ NSMutableData *data;
     }
     
     if(overallResult == EDK_OK){
-      for(int j =0; j < 26; j++){
+      value[0] = [[NSDate date] timeIntervalSince1970];
+      if (_heartRate) {
+        value[SAMPLE_SIZE - 2] = _heartRate.heartRate;
+        value[SAMPLE_SIZE - 1] = _heartRate.hsv;
+      } else {
+        value[SAMPLE_SIZE - 2] = 0;
+        value[SAMPLE_SIZE - 1] = 0;
+      }
+
+      for(int j=0; j < SAMPLE_SIZE; j++){
         if (j > 0)
           [self saveStr:file data:data value:comma];
         [self saveDoubleVal:file data:data value:value[j]];
@@ -231,8 +242,8 @@ NSMutableData *data;
   self.session = [dateFormatter stringFromDate:date];
 }
 
--(void) sendValues:(double[26])values {
-  for (int i=0; i<26; i++) buffer[i + SAMPLE_SIZE*currentPointer] = (Float64) values[i];
+-(void) sendValues:(double[SAMPLE_SIZE])values {
+  for (int i=0; i<SAMPLE_SIZE; i++) buffer[i + SAMPLE_SIZE*currentPointer] = (Float64) values[i];
   currentPointer = (currentPointer+1) % BUFFER_SIZE;
   if (lastTransmitted == currentPointer)
     lastTransmitted = (lastTransmitted+1) % BUFFER_SIZE;

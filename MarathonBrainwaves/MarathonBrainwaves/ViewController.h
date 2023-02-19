@@ -15,6 +15,7 @@
 }
 
 @property (weak) IBOutlet UILabel *status;
+@property (weak) IBOutlet UILabel *heartMonitorStatus;
 @property (weak) IBOutlet UILabel *destination;
 @property (weak) IBOutlet UIButton *recordButton;
 @property (weak) IBOutlet UIButton *transmitButton;
