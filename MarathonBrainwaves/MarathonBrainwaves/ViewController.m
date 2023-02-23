@@ -118,8 +118,11 @@ NSMutableData *data;
   }
   
   if (_heartRate) {
-    self.heartMonitorStatus.text = _heartRate.connected ? @"heart monitor connected" : @"";
+    self.heartStatus.text = _heartRate.connected ? @"Heart Monitor Connected" : @"heart monitor disconnect";
   }
+  
+  
+  
   
   int state = IEE_EngineGetNextEvent(eEvent);
   unsigned int userID = 0;

@@ -46,6 +46,39 @@
                                     <action selector="toggleTransmit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pwh-cA-OzB"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqP-fz-C45">
+                                <rect key="frame" x="20" y="511" width="500" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sn-Jc-MkO">
+                                <rect key="frame" x="161.5" y="542.5" width="217" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="see-Oh-FS6"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Disconnected">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="36" name="Futura-Medium"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="see-Oh-FS6"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <mask key="constraints">
+                                        <include reference="see-Oh-FS6"/>
+                                    </mask>
+                                </variation>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXc-RX-3OQ">
                                 <rect key="frame" x="13" y="432" width="507" height="71"/>
                                 <constraints>
@@ -73,37 +106,14 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqP-fz-C45">
-                                <rect key="frame" x="20" y="511" width="500" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1v-CT-bnf">
-                                <rect key="frame" x="13" y="511" width="507" height="71"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="53" id="fv0-V8-zPu"/>
-                                </constraints>
-                                <attributedString key="attributedText"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="fv0-V8-zPu"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <mask key="constraints">
-                                        <include reference="fv0-V8-zPu"/>
-                                    </mask>
-                                </variation>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.090196078431372548" green="0.2627450980392157" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="mqP-fz-C45" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O66-vl-ALR"/>
                             <constraint firstItem="gXc-RX-3OQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ONX-Bc-kCH"/>
                             <constraint firstItem="tdx-lZ-Q3g" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Pc2-Ok-d1p"/>
+                            <constraint firstItem="6sn-Jc-MkO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="R4f-ei-9n7"/>
+                            <constraint firstItem="6sn-Jc-MkO" firstAttribute="top" secondItem="gXc-RX-3OQ" secondAttribute="bottom" constant="36" id="UIO-pV-96Q"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tdx-lZ-Q3g" secondAttribute="trailing" constant="1" id="WPa-kC-i2O"/>
                             <constraint firstItem="gXc-RX-3OQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="0.5" id="Wmr-CQ-buN">
                                 <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
@@ -120,10 +130,10 @@
                                 <exclude reference="gXc-RX-3OQ"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="WPa-kC-i2O"/>
                                 <exclude reference="ONX-Bc-kCH"/>
                                 <exclude reference="Wmr-CQ-buN"/>
                                 <exclude reference="jv7-qp-iGX"/>
-                                <exclude reference="WPa-kC-i2O"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -131,10 +141,10 @@
                                 <include reference="gXc-RX-3OQ"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="WPa-kC-i2O"/>
                                 <include reference="ONX-Bc-kCH"/>
                                 <include reference="Wmr-CQ-buN"/>
                                 <include reference="jv7-qp-iGX"/>
-                                <include reference="WPa-kC-i2O"/>
                             </mask>
                         </variation>
                     </view>
@@ -142,7 +152,7 @@
                     <size key="freeformSize" width="540" height="960"/>
                     <connections>
                         <outlet property="destination" destination="mqP-fz-C45" id="YMq-WF-qJd"/>
-                        <outlet property="heartMonitorStatus" destination="z1v-CT-bnf" id="9zS-XZ-MFz"/>
+                        <outlet property="heartStatus" destination="6sn-Jc-MkO" id="w7P-Rg-cbw"/>
                         <outlet property="status" destination="gXc-RX-3OQ" id="9NS-RO-o8H"/>
                         <outlet property="transmitButton" destination="X9t-qh-ksK" id="4k2-mC-hfG"/>
                     </connections>
