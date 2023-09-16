@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,7 +35,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9t-qh-ksK">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9t-qh-ksK">
                                 <rect key="frame" x="20" y="873" width="500" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="xO4-hy-ZG2"/>
@@ -51,6 +46,39 @@
                                     <action selector="toggleTransmit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pwh-cA-OzB"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqP-fz-C45">
+                                <rect key="frame" x="20" y="511" width="500" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sn-Jc-MkO">
+                                <rect key="frame" x="161.5" y="542.5" width="217" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="see-Oh-FS6"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Disconnected">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="36" name="Futura-Medium"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="see-Oh-FS6"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <mask key="constraints">
+                                        <include reference="see-Oh-FS6"/>
+                                    </mask>
+                                </variation>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXc-RX-3OQ">
                                 <rect key="frame" x="13" y="432" width="507" height="71"/>
                                 <constraints>
@@ -78,18 +106,14 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqP-fz-C45">
-                                <rect key="frame" x="20" y="511" width="500" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.090196078431372548" green="0.2627450980392157" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="mqP-fz-C45" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O66-vl-ALR"/>
                             <constraint firstItem="gXc-RX-3OQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ONX-Bc-kCH"/>
                             <constraint firstItem="tdx-lZ-Q3g" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Pc2-Ok-d1p"/>
+                            <constraint firstItem="6sn-Jc-MkO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="R4f-ei-9n7"/>
+                            <constraint firstItem="6sn-Jc-MkO" firstAttribute="top" secondItem="gXc-RX-3OQ" secondAttribute="bottom" constant="36" id="UIO-pV-96Q"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tdx-lZ-Q3g" secondAttribute="trailing" constant="1" id="WPa-kC-i2O"/>
                             <constraint firstItem="gXc-RX-3OQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="0.5" id="Wmr-CQ-buN">
                                 <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
@@ -128,6 +152,7 @@
                     <size key="freeformSize" width="540" height="960"/>
                     <connections>
                         <outlet property="destination" destination="mqP-fz-C45" id="YMq-WF-qJd"/>
+                        <outlet property="heartStatus" destination="6sn-Jc-MkO" id="w7P-Rg-cbw"/>
                         <outlet property="status" destination="gXc-RX-3OQ" id="9NS-RO-o8H"/>
                         <outlet property="transmitButton" destination="X9t-qh-ksK" id="4k2-mC-hfG"/>
                     </connections>

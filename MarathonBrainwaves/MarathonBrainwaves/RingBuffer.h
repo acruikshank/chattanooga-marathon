@@ -19,5 +19,6 @@
 - (void)removeAll;
 - (T)objectAtIndexedSubscript:(NSInteger)index;
 - (void)setObject:(T)obj atIndexedSubscript:(NSInteger)index;
+- (void)subarrayWithRange: (NSRange)range;
 
 @end
