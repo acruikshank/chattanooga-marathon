@@ -50,7 +50,7 @@
 			<key>Key</key>
 			<string>host_preference</string>
 			<key>DefaultValue</key>
-			<string></string>
+			<string>marathon-brainwaves.com</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>KeyboardType</key>

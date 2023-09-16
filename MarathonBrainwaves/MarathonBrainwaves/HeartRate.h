@@ -19,11 +19,12 @@
 @property (nonatomic, strong) CBCharacteristic *notifyCharacteristic;
 @property (nonatomic, strong) RRValues *rrValues;
 @property (nonatomic, strong) NSString *deviceName;
+@property (nonatomic, strong) NSMutableArray *unsentRRValues;
 @property (nonatomic, assign) BOOL keepScanning;
 @property (assign) int heartRate;
 @property (assign) double hsv;
 @property (assign) bool connected;
 
 - (instancetype)initWithName: (NSString *)name;
-
+- (NSArray *)lastRRvalues: (int)count;
 @end

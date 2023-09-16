@@ -10,11 +10,13 @@
 #import "HeartRate.h"
 #import "RRValues.h"
 
-#define TIMER_SCAN_INTERVAL    2.0
+#define TIMER_SCAN_INTERVAL 2.0
 #define DEVICE_NAME   @"Polar H10 BD487724"
 #define DEVICE_IDENTIFIER @"C337ED9F-B1E6-CB9B-36B3-6BDDF7ADAC0E"
 #define HR_SERVICE @"180D"
 #define HR_CHARACTERISTIC @"2A37"
+
+#define MAX_TRANSMIT_VALUES 20
 
 @implementation HeartRate
 
@@ -25,6 +27,7 @@
       self.rrValues = [[RRValues alloc]initWithSize:200];
       self.deviceName = name;
       self.connected = false;
+      self.unsentRRValues = [[NSMutableArray alloc] initWithCapacity: MAX_TRANSMIT_VALUES];
     }
     return self;
 }
@@ -33,6 +36,11 @@
     if (central.state == CBManagerStatePoweredOn) {
         [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"180D"]] options:nil];
     }
+}
+
+- (void)restartScan:(CBCentralManager *)central {
+  NSLog(@"Restarting scan");  
+  [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"180D"]] options:nil];
 }
 
 // Looking for: Polar H10 BD487724 connectable: true address: A02701D8-DA45-6916-2EEE-815F3FB31530
@@ -62,6 +70,7 @@
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
   if ([peripheral.name hasSuffix:self.deviceName]) {
     self.connected = false;
+    [self restartScan: self.centralManager];
   }
 }
 
@@ -78,10 +87,6 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
   for (CBCharacteristic *characteristic in service.characteristics) {
-    uint8_t enableValue = 1;
-    NSData *enableBytes = [NSData dataWithBytes:&enableValue length:sizeof(uint8_t)];
-    NSLog(@"CHARACTERISTIC: %@", characteristic);
-
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HR_CHARACTERISTIC]]) {
       _notifyCharacteristic = characteristic;
       self.connected = true;
@@ -103,6 +108,10 @@
           NSLog(@"RRVALUE: %d", value);
           
           [self.rrValues appendValue:[NSNumber numberWithInt:value]];
+          [self.unsentRRValues addObject:[NSNumber numberWithInt:value]];
+          if (self.unsentRRValues.count > MAX_TRANSMIT_VALUES) {
+            [self.unsentRRValues removeObjectAtIndex:0];
+          }
         }
         self.heartRate = heartRate;
         self.hsv = [self.rrValues standardDeviation] / 1024.0;
@@ -110,4 +119,13 @@
       };
     }
 }
+
+- (NSArray *)lastRRvalues: (int)count {
+  NSRange valuesToRetrieve = {0, MIN(count, self.unsentRRValues.count)};
+  NSArray *values = [self.unsentRRValues subarrayWithRange: valuesToRetrieve];
+  NSRange removed = {0, values.count};
+  [self.unsentRRValues removeObjectsInRange:removed];
+  return values;
+}
+
 @end

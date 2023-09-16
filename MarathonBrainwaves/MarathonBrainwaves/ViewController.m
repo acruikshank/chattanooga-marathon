@@ -19,15 +19,16 @@ IEE_DataChannel_t ChannelList[] = {
   IED_AF3, IED_AF4, IED_T7, IED_T8, IED_Pz
 };
 
-const char header[] = "Time, Theta AF3,Alpha AF3,Low beta AF3,High beta AF3, Gamma AF3, Theta AF4,Alpha AF4,Low beta AF4,High beta AF4, Gamma AF4, Theta T7,Alpha T7,Low beta T7,High beta T7, Gamma T7, Theta T8,Alpha T8,Low beta T8,High beta T8, Gamma T8, Theta Pz,Alpha Pz,Low beta Pz,High beta Pz, Gamma Pz";
+const char header[] = "Time,Theta AF3,Alpha AF3,Low beta AF3,High beta AF3,Gamma AF3,Theta AF4,Alpha AF4,Low beta AF4,High beta AF4,Gamma AF4,Theta T7,Alpha T7,Low beta T7,High beta T7,Gamma T7,Theta T8,Alpha T8,Low beta T8,High beta T8,Gamma T8,Theta Pz,Alpha Pz,Low beta Pz,High beta Pz,Gamma Pz,Heart Rate,HRV,RR0,RR1,RR2,RR3,Lattitude,Longitude";
 
 const char *newLine = "\n";
 const char *comma = ",";
-const int SAMPLE_SIZE = 28;
-const int BUFFER_SIZE = 1200;
+const int MAX_RR_PER_SAMPLE = 4;
+
+const int SAMPLE_SIZE = 28 + MAX_RR_PER_SAMPLE;
+const int BUFFER_SIZE = SAMPLE_SIZE * 4 * 25;
 
 @interface ViewController ()
-
 
 @property (nonatomic, retain) NSString *session;
 @property (nonatomic, retain) CLLocationManager *locationManager;
@@ -118,11 +119,8 @@ NSMutableData *data;
   }
   
   if (_heartRate) {
-    self.heartStatus.text = _heartRate.connected ? @"Heart Monitor Connected" : @"heart monitor disconnect";
+    self.heartStatus.text = _heartRate.connected ? @"Heart Monitor Connected" : @"heart monitor disconnected";
   }
-  
-  
-  
   
   int state = IEE_EngineGetNextEvent(eEvent);
   unsigned int userID = 0;
@@ -130,7 +128,6 @@ NSMutableData *data;
   
   if (state == EDK_OK)
   {
-      NSLog(@"test");
     IEE_Event_t eventType = IEE_EmoEngineEventGetType(eEvent);
     IEE_EmoEngineEventGetUserId(eEvent, &userID);
     
@@ -166,13 +163,21 @@ NSMutableData *data;
     }
     
     if(overallResult == EDK_OK){
+      
+      
       value[0] = [[NSDate date] timeIntervalSince1970];
       if (_heartRate) {
-        value[SAMPLE_SIZE - 2] = _heartRate.heartRate;
-        value[SAMPLE_SIZE - 1] = _heartRate.hsv;
+        value[SAMPLE_SIZE - MAX_RR_PER_SAMPLE - 2] = _heartRate.heartRate;
+        value[SAMPLE_SIZE - MAX_RR_PER_SAMPLE - 1] = _heartRate.hsv;
+        
+        NSArray *rrValues = [_heartRate lastRRvalues: MAX_RR_PER_SAMPLE];
+        for (int i=0; i<MAX_RR_PER_SAMPLE; i++) {
+          value[SAMPLE_SIZE - MAX_RR_PER_SAMPLE + i] = rrValues.count > i ? [[rrValues objectAtIndex:i] floatValue] : 0;
+        }
       } else {
-        value[SAMPLE_SIZE - 2] = 0;
-        value[SAMPLE_SIZE - 1] = 0;
+        for (int i=0; i<2+MAX_RR_PER_SAMPLE; i++) {
+          value[SAMPLE_SIZE - i - 1] = 0;
+        }
       }
 
       for(int j=0; j < SAMPLE_SIZE; j++){
@@ -180,6 +185,13 @@ NSMutableData *data;
           [self saveStr:file data:data value:comma];
         [self saveDoubleVal:file data:data value:value[j]];
       }
+      
+      // save location to backup (transmitted values send location via headers).
+      [self saveStr:file data:data value:comma];
+      [self saveDoubleVal:file data:data value:currentLocation.latitude];
+      [self saveStr:file data:data value:comma];
+      [self saveDoubleVal:file data:data value:currentLocation.longitude];
+
       [self saveStr:file data:data value:newLine];
       if (transmitting) {
         [self sendValues:value];
@@ -276,7 +288,8 @@ NSMutableData *data;
     host = @"chattanooga-marathon-alex.ngrok.io";
   }
 
-  NSString *url = [NSString stringWithFormat:@"http://%@/api/1.0/samples/%@/%@", host, self.deviceName, self.session];
+  NSString *url = [NSString stringWithFormat:@"https://%@/api/1.0/samples/%@/%@", host, self.deviceName, self.session];
+  NSLog(@"Sending samples to %@", url);
   STHTTPRequest *request = [STHTTPRequest requestWithURLString:url];
   
   NSString *location = [NSString stringWithFormat:@"%f;%f", currentLocation.latitude, currentLocation.longitude];

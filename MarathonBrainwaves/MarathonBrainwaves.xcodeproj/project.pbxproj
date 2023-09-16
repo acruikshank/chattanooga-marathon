@@ -184,8 +184,6 @@
 				2D0208C81E4C15310079CB61 /* Sources */,
 				2D0208C91E4C15310079CB61 /* Frameworks */,
 				2D0208CA1E4C15310079CB61 /* Resources */,
-				CC7122D661D0686CFA7F26CF /* [CP] Embed Pods Frameworks */,
-				3FC1238698564CA8385D07CC /* [CP] Copy Pods Resources */,
 				2DB90B391E4CCAFF00B83B8B /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -208,7 +206,7 @@
 				TargetAttributes = {
 					2D0208CB1E4C15310079CB61 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 8SU2K8SVJT;
+						DevelopmentTeam = YE3Y8EE6RK;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -250,49 +248,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3FC1238698564CA8385D07CC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MarathonBrainwaves/Pods-MarathonBrainwaves-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CC7122D661D0686CFA7F26CF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MarathonBrainwaves/Pods-MarathonBrainwaves-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D22351F9A98676BA8F6E0841 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MarathonBrainwaves-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -445,7 +416,8 @@
 			baseConfigurationReference = 4F39F65813BB8B7EC8505342 /* Pods-MarathonBrainwaves.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8SU2K8SVJT;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YE3Y8EE6RK;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -456,12 +428,13 @@
 				INFOPLIST_FILE = MarathonBrainwaves/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-l\"STHTTPRequest\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = lancebrackett.MarathonBrainwaves;
+				PRODUCT_BUNDLE_IDENTIFIER = alexcruikshank.MarathonBrainwaves;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -471,7 +444,8 @@
 			baseConfigurationReference = C893ECDF9C0D80FF390EF1F7 /* Pods-MarathonBrainwaves.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8SU2K8SVJT;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YE3Y8EE6RK;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -482,12 +456,13 @@
 				INFOPLIST_FILE = MarathonBrainwaves/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-l\"STHTTPRequest\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = lancebrackett.MarathonBrainwaves;
+				PRODUCT_BUNDLE_IDENTIFIER = alexcruikshank.MarathonBrainwaves;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
